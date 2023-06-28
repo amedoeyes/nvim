@@ -1,6 +1,6 @@
 local colors = {
 	black = "#000000",
-	white = "#808080",
+	white = "#aaaaaa",
 }
 return {
 	normal = {

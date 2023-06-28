@@ -1,3 +1,5 @@
+require("lspconfig.ui.windows").default_options.border = "rounded"
+
 return {
 	{
 		"neovim/nvim-lspconfig",
@@ -39,31 +41,41 @@ return {
 	},
 	{
 		"williamboman/mason.nvim",
-		opts = function(_, opts)
-			table.insert(opts.ensure_installed, "prettierd")
-		end,
-		config = function()
-			require("mason").setup({
-				ui = {
-					border = "rounded",
-				},
-			})
-		end,
+		opts = {
+			ensure_installed = {
+				"stylua",
+				"shfmt",
+				"prettierd",
+				"pyright",
+				"flake8",
+				"black",
+			},
+			ui = {
+				border = "rounded",
+			},
+		},
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		opts = function(_, opts)
+		opts = function()
 			local nls = require("null-ls")
-			table.insert(
-				opts.sources,
-				nls.builtins.formatting.prettierd.with({
-					extra_args = { "--print-width 120", "--tab-width 4", "--use-tabs" },
-				})
-			)
-			table.insert(opts.sources, nls.builtins.formatting.black)
+			return {
+				root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+				sources = {
+					nls.builtins.formatting.stylua,
+					nls.builtins.formatting.shfmt,
+					nls.builtins.formatting.prettierd.with({
+						extra_args = { "--tab-width=4", "--use-tabs" },
+					}),
+					nls.builtins.formatting.black,
 
-			table.insert(opts.sources, nls.builtins.diagnostics.eslint)
-			table.insert(opts.sources, nls.builtins.diagnostics.flake8.with({ extra_args = { "--ignore=E501" } }))
+					nls.builtins.diagnostics.eslint,
+					nls.builtins.diagnostics.flake8.with({
+						extra_args = { "--ignore=E501" },
+					}),
+				},
+				border = "rounded",
+			}
 		end,
 	},
 }

@@ -49,6 +49,8 @@ return {
 				"pyright",
 				"flake8",
 				"black",
+				"markdownlint",
+				"marksman",
 			},
 			ui = {
 				border = "rounded",
@@ -65,13 +67,16 @@ return {
 					nls.builtins.formatting.stylua,
 					nls.builtins.formatting.shfmt,
 					nls.builtins.formatting.prettierd.with({
-						extra_args = { "--tab-width=4", "--use-tabs" },
+						extra_args = { "--tab-width", "4", "--use-tabs" },
 					}),
+					nls.builtins.formatting.markdownlint,
 					nls.builtins.formatting.black,
 
-					nls.builtins.diagnostics.eslint,
 					nls.builtins.diagnostics.flake8.with({
-						extra_args = { "--ignore=E501" },
+						extra_args = { "--ignore", "E501" },
+					}),
+					nls.builtins.diagnostics.markdownlint.with({
+						extra_args = { "--disable", "MD013" },
 					}),
 				},
 				border = "rounded",

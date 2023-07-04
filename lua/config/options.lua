@@ -8,3 +8,4 @@ opt.fillchars:append({ eob = " " })
 opt.listchars:append({ trail = " " })
 opt.listchars:append({ tab = "  " })
 opt.spelloptions = "camel"
+opt.conceallevel = 0

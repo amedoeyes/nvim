@@ -1,14 +1,38 @@
-local cmp_window = require("cmp.config.window")
-
+local cmp = require("cmp")
 return {
 	"hrsh7th/nvim-cmp",
 	opts = {
-		window = {
-			completion = cmp_window.bordered(),
-			documentation = cmp_window.bordered(),
+		sources = cmp.config.sources({
+			{ name = "codeium" },
+			{ name = "nvim_lsp" },
+			{ name = "luasnip" },
+			{ name = "buffer" },
+			{ name = "path" },
+		}),
+		formatting = {
+			format = function(entry, item)
+				local icons = require("lazyvim.config").icons.kinds
+
+				if icons[item.kind] then
+					item.kind = icons[item.kind] .. item.kind
+				end
+
+				if item.kind == "Codeium" then
+					item.kind = " " .. item.kind
+				end
+
+				require("tailwindcss-colorizer-cmp").formatter(entry, item)
+
+				return item
+			end,
 		},
-		experimental = {
-			ghost_text = false,
+		window = {
+			completion = cmp.config.window.bordered({
+				winhighlight = "Normal:Pmenu,Float:Pmenu,Search:None",
+			}),
+			documentation = cmp.config.window.bordered({
+				winhighlight = "Normal:Pmenu,Float:Pmenu,Search:None",
+			}),
 		},
 	},
 }

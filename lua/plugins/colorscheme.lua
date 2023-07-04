@@ -1,6 +1,6 @@
 return {
 	{
-		"amedoeyes/nvim-base16-eyes",
+		"amedoeyes/eyes.nvim",
 	},
 	{
 		"LazyVim/LazyVim",

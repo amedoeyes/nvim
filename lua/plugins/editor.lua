@@ -1,8 +1,12 @@
 return {
 	{
-		"L3MON4D3/LuaSnip",
-		keys = function()
-			return {}
+		"windwp/nvim-ts-autotag",
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				autotag = {
+					enable = true,
+				},
+			})
 		end,
 	},
 }

@@ -38,7 +38,6 @@ return {
 		"nvim-lualine/lualine.nvim",
 		opts = function()
 			local icons = require("lazyvim.config").icons
-			local Util = require("lazyvim.util")
 
 			return {
 				options = {
@@ -60,13 +59,14 @@ return {
 								info = icons.diagnostics.Info,
 								hint = icons.diagnostics.Hint,
 							},
+							colored = false,
 						},
 						{
 							"filetype",
-							colored = false,
 							icon_only = true,
 							separator = "",
 							padding = { left = 1, right = 0 },
+							colored = false,
 						},
 						{ "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
 						{
@@ -78,7 +78,8 @@ return {
 							end,
 						},
 					},
-					lualine_x = {
+					lualine_x = {},
+					lualine_y = {
 						{
 							function()
 								return require("noice").api.status.command.get()
@@ -86,7 +87,6 @@ return {
 							cond = function()
 								return package.loaded["noice"] and require("noice").api.status.command.has()
 							end,
-							color = Util.fg("Statement"),
 						},
 						{
 							function()
@@ -95,7 +95,6 @@ return {
 							cond = function()
 								return package.loaded["noice"] and require("noice").api.status.mode.has()
 							end,
-							color = Util.fg("Constant"),
 						},
 						{
 							function()
@@ -104,7 +103,6 @@ return {
 							cond = function()
 								return package.loaded["dap"] and require("dap").status() ~= ""
 							end,
-							color = Util.fg("Debug"),
 						},
 						{
 							"diff",
@@ -113,26 +111,12 @@ return {
 								modified = icons.git.modified,
 								removed = icons.git.removed,
 							},
+							colored = false,
 						},
 					},
-					lualine_y = {
-						{ "progress", separator = " ", padding = { left = 1, right = 0 } },
-						{ "location", padding = { left = 0, right = 1 } },
-					},
 					lualine_z = {
-						function()
-							local status = vim.fn["codeium#GetStatusString"]()
-
-							if status == " * " then
-								return "{-}"
-							end
-
-							if status == 0 then
-								return "{!}"
-							end
-
-							return "{…}"
-						end,
+						{ "progress", separator = " ", padding = { left = 1, right = 0 } },
+						{ "location" },
 					},
 				},
 				extensions = { "neo-tree", "lazy" },

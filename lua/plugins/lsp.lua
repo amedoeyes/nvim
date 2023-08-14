@@ -8,11 +8,7 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			{ "b0o/SchemaStore.nvim", version = false },
 			"p00f/clangd_extensions.nvim",
-			{
-				"pmizio/typescript-tools.nvim",
-				dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-				opts = {},
-			},
+			"pmizio/typescript-tools.nvim",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
@@ -52,7 +48,9 @@ return {
 				tsserver = function()
 					require("typescript-tools").setup({})
 				end,
+				cssls = {},
 				tailwindcss = {},
+				emmet_language_server = {},
 				marksman = {},
 				pyright = {},
 				clangd = function()
@@ -112,49 +110,45 @@ return {
 			})
 
 			require("lspconfig.ui.windows").default_options.border = "rounded"
+		end,
+	},
+	{
+		"mfussenegger/nvim-dap",
+		config = function()
+			local icons = require("config.util").icons
 
-			require("config.lsp").setup()
+			for name, sign in pairs(icons.dap) do
+				vim.fn.sign_define("Dap" .. name, { text = sign })
+			end
+		end,
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		opts = {},
+		config = function(_, opts)
+			local dap = require("dap")
+			local dapui = require("dapui")
+
+			dapui.setup(opts)
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open({})
+			end
+			dap.listeners.before.event_terminated["dapui_config"] = function()
+				dapui.close({})
+			end
+			dap.listeners.before.event_exited["dapui_config"] = function()
+				dapui.close({})
+			end
 		end,
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		dependencies = {
-			"mason.nvim",
-			"nvim-lua/plenary.nvim",
-			{ "ThePrimeagen/refactoring.nvim", opts = {} },
-		},
 		event = { "BufReadPre", "BufNewFile" },
 		opts = function()
 			local nls = require("null-ls")
-			local filetypes_exclude = function(exclude, filetypes)
-				return vim.tbl_filter(function(ft)
-					return not vim.tbl_contains(exclude, ft)
-				end, filetypes)
-			end
 
 			return {
 				sources = {
-					--formatters
-					nls.builtins.formatting.stylua,
-					nls.builtins.formatting.prettierd.with({
-						extra_args = { "--tab-width=4", "--use-tabs" },
-						filetypes = filetypes_exclude(
-							{ "markdown" },
-							require("null-ls.builtins._meta.formatting").prettierd.filetypes
-						),
-					}),
-					nls.builtins.formatting.markdownlint,
-					nls.builtins.formatting.black,
-
-					--linters
-					nls.builtins.diagnostics.flake8.with({
-						extra_args = { "--ignore", "E501" },
-					}),
-					nls.builtins.diagnostics.markdownlint.with({
-						extra_args = { "--disable", "MD013", "MD033" },
-					}),
-
-					--code_actions
 					nls.builtins.code_actions.refactoring,
 				},
 				border = "rounded",
@@ -164,28 +158,45 @@ return {
 	},
 	{
 		"williamboman/mason.nvim",
-		dependencies = {
-			{
-				"WhoIsSethDaniel/mason-tool-installer.nvim",
-				opts = {
-					ensure_installed = {
-						--formatters
-						"stylua",
-						"prettierd",
-						"black",
-						--linters
-						"flake8",
-						"markdownlint",
-					},
-				},
-			},
-		},
 		build = ":MasonUpdate",
 		cmd = "Mason",
 		opts = {
 			ui = {
 				border = "rounded",
 			},
+		},
+	},
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		opts = {
+			ensure_installed = {
+				--formatters
+				"stylua",
+				"prettierd",
+				"black",
+
+				--linters
+				"flake8",
+
+				--DAP
+				"codelldb",
+				"node-debug2-adapter",
+			},
+			auto_update = true,
+		},
+	},
+	{
+		"jayp0521/mason-null-ls.nvim",
+		opts = {
+			automatic_installation = true,
+			handlers = {},
+		},
+	},
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		opts = {
+			automatic_installation = true,
+			handlers = {},
 		},
 	},
 }

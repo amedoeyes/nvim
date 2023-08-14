@@ -2,8 +2,6 @@ require("config.options")
 require("config.autocmds")
 require("config.commands")
 require("config.keymaps")
+require("config.util").lsp.setup()
+require("config.gui")
 require("config.lazy")
-
-if vim.g.neovide then
-	require("config.neovide")
-end

@@ -77,6 +77,7 @@ return {
 		opts = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
+			local icons = require("config.util").icons
 
 			return {
 				completion = {
@@ -110,7 +111,7 @@ return {
 					format = lspkind.cmp_format({
 						maxwidth = 20,
 						ellipsis_char = "…",
-						symbol_map = require("config.icons").kinds,
+						symbol_map = icons.kinds,
 						before = function(entry, item)
 							require("tailwindcss-colorizer-cmp").formatter(entry, item)
 
@@ -188,6 +189,16 @@ return {
 		"Exafunction/codeium.vim",
 		config = function()
 			vim.g.codeium_no_map_tab = true
+			vim.g.codeium_enabled = true
 		end,
+	},
+	{
+		"windwp/nvim-ts-autotag",
+		event = "InsertEnter",
+		opts = {},
+	},
+	{
+		"ThePrimeagen/refactoring.nvim",
+		opts = {},
 	},
 }

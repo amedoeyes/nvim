@@ -11,7 +11,6 @@ return {
 	},
 	{
 		"folke/noice.nvim",
-
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			{
@@ -87,9 +86,10 @@ return {
 					end,
 					diagnostics = "nvim_lsp",
 					diagnostics_indicator = function(_, _, diag)
-						local icons = require("config.icons").diagnostics
-						local ret = (diag.error and icons.Error .. diag.error .. " " or "")
-							.. (diag.warning and icons.Warn .. diag.warning or "")
+						local icons = require("config.util").icons
+
+						local ret = (diag.error and icons.diagnostics.Error .. diag.error .. " " or "")
+							.. (diag.warning and icons.diagnostics.Warn .. diag.warning or "")
 
 						return vim.trim(ret)
 					end,
@@ -146,7 +146,7 @@ return {
 			},
 		},
 		opts = function()
-			local icons = require("config.icons")
+			local icons = require("config.util").icons
 			local augroup = vim.api.nvim_create_augroup("lualine_augroup", {})
 
 			vim.api.nvim_create_autocmd("User LspProgressStatusUpdated", {

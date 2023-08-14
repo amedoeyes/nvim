@@ -2,11 +2,6 @@ return {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-			"MunifTanjim/nui.nvim",
-		},
 		cmd = "Neotree",
 		opts = {
 			close_if_last_window = true,
@@ -30,7 +25,6 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.2",
-		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
 			defaults = {
 				sorting_strategy = "ascending",
@@ -56,6 +50,7 @@ return {
 				["gs"] = { name = "+surround" },
 				["<leader>b"] = { name = "+buffers" },
 				["<leader>c"] = { name = "+code" },
+				["<leader>d"] = { name = "+debugger" },
 				["<leader>f"] = { name = "+files" },
 				["<leader>g"] = { name = "+git" },
 				["<leader>o"] = { name = "+options" },
@@ -129,5 +124,7 @@ return {
 			use_diagnostic_signs = true,
 		},
 	},
-	{ "tpope/vim-sleuth" },
+	{
+		"tpope/vim-sleuth",
+	},
 }

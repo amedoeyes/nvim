@@ -13,6 +13,7 @@ opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 opt.timeoutlen = 300
 opt.wildmode = "longest:full,full"
 opt.wrap = false
+opt.linebreak = true
 
 opt.cursorline = true
 opt.mouse = "a"

@@ -1,3 +1,5 @@
+local util = require("config.util")
+
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -75,7 +77,7 @@ autocmd("BufWritePre", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("TermClose", {
+autocmd("TermClose", {
 	group = augroup("lazygit_close", { clear = true }),
 	pattern = "*lazygit*",
 	callback = function()
@@ -85,7 +87,7 @@ vim.api.nvim_create_autocmd("TermClose", {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "VimEnter" }, {
+autocmd({ "BufEnter", "VimEnter" }, {
 	group = augroup("cd_to_project_root", { clear = true }),
 	callback = function()
 		pcall(function()
@@ -95,26 +97,35 @@ vim.api.nvim_create_autocmd({ "BufEnter", "VimEnter" }, {
 	end,
 })
 
-local lsp = require("config.lsp")
+autocmd("VimEnter", {
+	group = augroup("open_dir", { clear = true }),
+	callback = function()
+		if vim.fn.argc() == 1 then
+			---@diagnostic disable-next-line: param-type-mismatch
+			local stat = vim.loop.fs_stat(vim.fn.argv(0))
+			if stat and stat.type == "directory" then
+				require("neo-tree")
+			end
+		end
+	end,
+})
 
-lsp.on_attach(function(_, buffer)
-	local lsp_augroup = augroup("lsp_on_attach", { clear = false })
+util.lsp.on_attach(function()
+	local lsp_augroup = augroup("lsp_on_attach", { clear = true })
 
-	vim.api.nvim_create_autocmd("BufWritePre", {
+	autocmd("BufWritePre", {
 		group = lsp_augroup,
-		buffer = buffer,
 		callback = function()
-			if lsp.config.autoformat then
-				lsp.format()
+			if util.lsp.config.autoformat then
+				util.lsp.format()
 			end
 		end,
 	})
 
-	vim.api.nvim_create_autocmd("BufEnter", {
+	autocmd("BufEnter", {
 		group = lsp_augroup,
-		buffer = buffer,
 		callback = function()
-			vim.lsp.inlay_hint(0, lsp.config.inlay_hint)
+			vim.lsp.inlay_hint(0, util.lsp.config.inlay_hint)
 		end,
 	})
 end)

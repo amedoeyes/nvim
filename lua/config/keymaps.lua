@@ -1,4 +1,23 @@
+local util = require("config.util")
+
 local map = vim.keymap.set
+
+--Buffers
+
+map("n", "<leader>bf", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
+map("n", "<leader>bP", "<cmd>BufferLineGroupClose ungrouped<cr>", { desc = "Delete non-pinned buffers" })
+map("n", "<leader>bp", "<cmd>BufferLineTogglePin<cr>", { desc = "Pin buffer" })
+
+map("n", "<leader>bs", function()
+	require("telescope.builtin").current_buffer_fuzzy_find()
+end, { desc = "Search buffer" })
+
+map("n", "<leader>bd", function()
+	require("mini.bufremove").delete(0, false)
+end, { desc = "Delete buffer" })
+
+map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" })
+map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 
 --Code
 
@@ -19,30 +38,83 @@ end, { desc = "Luasnip/Codeium/Tab", expr = true, silent = true })
 
 map("s", "<tab>", function()
 	require("luasnip").jump(1)
-end, { desc = "Luasnip next" })
+end, { desc = "Next snippet" })
 
 map({ "i", "s" }, "<s-tab>", function()
 	require("luasnip").jump(-1)
-end, { desc = "Luasnip previous" })
+end, { desc = "Previous snippet" })
 
 map("n", "<leader>cs", "<cmd> Telescope spell_suggest<cr>", { desc = "Spell suggestions" })
 
---Buffers
+--Debugger
 
-map("n", "<leader>bf", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
-map("n", "<leader>bP", "<cmd>BufferLineGroupClose ungrouped<cr>", { desc = "Delete non-pinned buffers" })
-map("n", "<leader>bp", "<cmd>BufferLineTogglePin<cr>", { desc = "Pin buffer" })
+map("n", "<leader>dB", function()
+	require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+end, { desc = "DAP condition breakpoint" })
 
-map("n", "<leader>bs", function()
-	require("telescope.builtin").current_buffer_fuzzy_find()
-end, { desc = "Search buffer" })
+map("n", "<leader>db", function()
+	require("dap").toggle_breakpoint()
+end, { desc = "DAP toggle breakpoint" })
 
-map("n", "<leader>bd", function()
-	require("mini.bufremove").delete(0, false)
-end, { desc = "Delete buffer" })
+map("n", "<leader>dc", function()
+	require("dap").continue()
+end, { desc = "DAP continue" })
 
-map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" })
-map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+map("n", "<leader>dC", function()
+	require("dap").run_to_cursor()
+end, { desc = "DAP run to cursor" })
+
+map("n", "<leader>dg", function()
+	require("dap").goto_()
+end, { desc = "DAP goto" })
+
+map("n", "<leader>di", function()
+	require("dap").step_into()
+end, { desc = "DAP step into" })
+
+map("n", "<leader>dj", function()
+	require("dap").down()
+end, { desc = "DAP down" })
+
+map("n", "<leader>dk", function()
+	require("dap").up()
+end, { desc = "DAP up" })
+
+map("n", "<leader>dl", function()
+	require("dap").run_last()
+end, { desc = "DAP run last" })
+
+map("n", "<leader>do", function()
+	require("dap").step_out()
+end, { desc = "DAP step out" })
+
+map("n", "<leader>dO", function()
+	require("dap").step_over()
+end, { desc = "DAP step over" })
+
+map("n", "<leader>dp", function()
+	require("dap").pause()
+end, { desc = "DAP pause" })
+
+map("n", "<leader>dr", function()
+	require("dap").repl.toggle()
+end, { desc = "DAP toggle REPL" })
+
+map("n", "<leader>ds", function()
+	require("dap").session()
+end, { desc = "DAP session" })
+
+map("n", "<leader>dt", function()
+	require("dap").terminate()
+end, { desc = "DAP terminate" })
+
+map("n", "<leader>dw", function()
+	require("dap.ui.widgets").hover()
+end, { desc = "DAP widgets" })
+
+map("n", "<leader>du", function()
+	require("dapui").toggle()
+end, { desc = "DAP UI" })
 
 --Files
 
@@ -52,16 +124,10 @@ end, { desc = "Files explorer" })
 
 map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recent files" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
-map("n", "<leader>fw", "<cmd>Telescope grep_string<cr>", { desc = "Search files by word" })
-map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Search files by grep" })
+map("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Search files" })
 map("n", "<leader>fp", "<Cmd>Telescope projects<CR>", { desc = "Projects" })
 
 --Git
-
-map("n", "<leader>gf", "<cmd>Telescope git_files<cr>", { desc = "Git files" })
-map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Git branches" })
-map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Git commits" })
-map("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Git status" })
 
 map("n", "<leader>gg", function()
 	local Terminal = require("toggleterm.terminal").Terminal
@@ -77,19 +143,17 @@ end, { desc = "lazygit" })
 
 --LSP
 
-local lsp = require("config.lsp")
-
-lsp.on_attach(function(_, buffer)
+util.lsp.on_attach(function(_, buffer)
 	--Code
 
 	map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename", buffer = buffer })
 	map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions", buffer = buffer })
-	map({ "n", "v" }, "<leader>cf", lsp.format, { desc = "Format", buffer = buffer })
+	map({ "n", "v" }, "<leader>cf", util.lsp.format, { desc = "Format", buffer = buffer })
 
 	--Diagnostics
 
 	map("n", "<leader>xs", "<cmd>Telescope diagnostics<cr>", { desc = "Search diagnostics", buffer = buffer })
-	map("n", "<leader>xx", vim.diagnostic.open_float, { desc = "Diagnostic under cursor", buffer = buffer })
+	map("n", "<leader>xx", vim.diagnostic.open_float, { desc = "Diagnostic", buffer = buffer })
 
 	map(
 		"n",
@@ -128,50 +192,56 @@ lsp.on_attach(function(_, buffer)
 	--Options
 
 	map("n", "<leader>of", function()
-		lsp.toggle.autoformat()
-		vim.notify("Autoformatting: " .. (lsp.config.autoformat and "on" or "off"), vim.log.levels.INFO)
+		util.toggle(util.lsp.config.autoformat, "Autoformat", function(val)
+			util.lsp.config.autoformat = val
+		end)
 	end, { desc = "Toggle autoformat", buffer = buffer })
 
 	map("n", "<leader>oi", function()
-		lsp.toggle.inlay_hint()
-		vim.notify("Inlay Hint: " .. (lsp.config.inlay_hint and "on" or "off"), vim.log.levels.INFO)
+		util.toggle(util.lsp.config.inlay_hint, "Inlay hint", function(val)
+			util.lsp.config.inlay_hint = val
+			vim.lsp.inlay_hint(0, val)
+		end)
 	end, { desc = "Toggle inlay hint", buffer = buffer })
 end)
 
 --Movement
 
-map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Next line", expr = true, silent = true })
-map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Previous line", expr = true, silent = true })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Next line", expr = true, silent = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Previous line", expr = true, silent = true })
 
 --Options
 
 map("n", "<leader>os", function()
-	vim.o.spell = not vim.o.spell
-	vim.notify("Spell: " .. (vim.o.spell and "on" or "off"), vim.log.levels.INFO)
+	util.toggle(vim.o.spell, "Spell", function(val)
+		vim.o.spell = val
+	end)
 end, { desc = "Toggle spell" })
+
+map("n", "<leader>oc", function()
+	util.toggle(vim.g.codeium_enabled, "Codeium", function(val)
+		vim.g.codeium_enabled = val
+	end)
+end, { desc = "Toggle Codeium" })
 
 --Search
 
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
 map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Previous search result" })
-map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Previous search result" })
-map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Previous search result" })
 
 map("n", "<leader>sa", "<cmd>Telescope autocommands<cr>", { desc = "Search autocommands" })
 map("n", "<leader>sc", "<cmd>Telescope commands<cr>", { desc = "Search commands" })
 map("n", "<leader>sh", "<cmd>Telescope help_tags<cr>", { desc = "Search help" })
-map("n", "<leader>sH", "<cmd>Telescope highlights<cr>", { desc = "Search highlight" })
+map("n", "<leader>sH", "<cmd>Telescope highlights<cr>", { desc = "Search highlights" })
 map("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Search keymaps" })
 map("n", "<leader>so", "<cmd>Telescope vim_options<cr>", { desc = "Search options" })
 
-map({ "n", "x", "o" }, "s", function()
+map("n", "s", function()
 	require("flash").jump()
 end, { desc = "Flash jump" })
 
-map({ "n", "x", "o" }, "S", function()
+map("n", "S", function()
 	require("flash").treesitter()
 end, { desc = "Flash Treesitter" })
 
@@ -238,7 +308,7 @@ map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window w
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect" })
 
 map("n", "<leader>un", function()
-	require("notify").dismiss({ silent = true, pending = true })
+	util.require("notify").dismiss({ silent = true, pending = true })
 end, { desc = "Dismiss notifications" })
 
 map("n", "<leader>uN", "<cmd>Telescope notify<cr>", { desc = "Notifications history" })

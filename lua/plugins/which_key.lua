@@ -1,0 +1,33 @@
+return {
+	"folke/which-key.nvim",
+	event = "VeryLazy",
+	opts = {
+		show_help = false,
+		defaults = {
+			mode = { "n", "v" },
+			["]"] = { name = "+next" },
+			["["] = { name = "+prev" },
+			["gs"] = { name = "+surround" },
+			["<leader>b"] = { name = "+buffers" },
+			["<leader>c"] = { name = "+code" },
+			["<leader>d"] = { name = "+debugger" },
+			["<leader>f"] = { name = "+files" },
+			["<leader>g"] = { name = "+git" },
+			["<leader>o"] = { name = "+options" },
+			["<leader>q"] = { name = "+sessions" },
+			["<leader>s"] = { name = "+search" },
+			["<leader>t"] = { name = "+terminal" },
+			["<leader>u"] = { name = "+ui" },
+			["<leader>x"] = { name = "+diagnostics" },
+		},
+		window = {
+			border = "rounded",
+		},
+	},
+	config = function(_, opts)
+		local wk = require("which-key")
+
+		wk.setup(opts)
+		wk.register(opts.defaults)
+	end,
+}

@@ -11,7 +11,7 @@ opt.scrolloff = 4
 opt.sidescrolloff = 8
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 opt.timeoutlen = 300
-opt.wildmode = "longest:full,full"
+
 opt.wrap = false
 opt.linebreak = true
 
@@ -41,8 +41,8 @@ opt.fillchars:append({ eob = " " })
 opt.listchars:append({ trail = " " })
 opt.listchars:append({ tab = "  " })
 
+opt.wildmode = "longest:full,full"
 opt.completeopt = "menu,menuone,noinsert"
-
 opt.pumheight = 10
 
 opt.splitkeep = "screen"
@@ -52,7 +52,6 @@ opt.winminwidth = 5
 
 opt.autowrite = true
 opt.confirm = true
-opt.updatetime = 200
 opt.undofile = true
 opt.undolevels = 10000
 opt.swapfile = false

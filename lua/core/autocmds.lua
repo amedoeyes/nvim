@@ -1,4 +1,4 @@
-local util = require("config.util")
+local util = require("core.util")
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
@@ -27,7 +27,7 @@ autocmd("BufReadPost", {
 	callback = function(event)
 		local mark = vim.api.nvim_buf_get_mark(event.buf, '"')
 
-		vim.api.nvim_win_set_cursor(0, mark)
+		pcall(vim.api.nvim_win_set_cursor, 0, mark)
 	end,
 })
 
@@ -77,50 +77,8 @@ autocmd("BufWritePre", {
 	end,
 })
 
-autocmd("TermClose", {
-	group = augroup("lazygit_close", { clear = true }),
-	pattern = "*lazygit*",
-	callback = function()
-		if package.loaded["neo-tree.sources.git_status"] then
-			require("neo-tree.sources.git_status").refresh()
-		end
-	end,
-})
-
-autocmd({ "BufEnter", "VimEnter" }, {
-	group = augroup("cd_to_project_root", { clear = true }),
-	callback = function()
-		pcall(function()
-			vim.cmd("lcd %:p:h")
-		end)
-		vim.cmd("ProjectRoot")
-	end,
-})
-
-autocmd("VimEnter", {
-	group = augroup("open_dir", { clear = true }),
-	callback = function()
-		if vim.fn.argc() == 1 then
-			---@diagnostic disable-next-line: param-type-mismatch
-			local stat = vim.loop.fs_stat(vim.fn.argv(0))
-			if stat and stat.type == "directory" then
-				require("neo-tree")
-			end
-		end
-	end,
-})
-
 util.lsp.on_attach(function()
 	local lsp_augroup = augroup("lsp_on_attach", { clear = true })
-
-	autocmd("BufWritePre", {
-		group = lsp_augroup,
-		callback = function()
-			if util.lsp.config.autoformat then
-				util.lsp.format()
-			end
-		end,
-	})
 
 	autocmd("BufEnter", {
 		group = lsp_augroup,

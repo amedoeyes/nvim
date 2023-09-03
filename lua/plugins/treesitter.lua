@@ -8,6 +8,7 @@ return {
 		ensure_installed = {
 			"bash",
 			"c",
+			"cmake",
 			"cpp",
 			"css",
 			"comment",
@@ -19,6 +20,7 @@ return {
 			"lua",
 			"luadoc",
 			"luap",
+			"make",
 			"markdown",
 			"markdown_inline",
 			"python",

@@ -5,18 +5,14 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		opts = {
 			ensure_installed = {
-				--formatters
-				"shfmt",
-				"stylua",
-				"prettierd",
 				"black",
-
-				--linters
-				"flake8",
-
-				--DAP
+				"cmakelang",
 				"codelldb",
+				"ruff",
+				"stylua",
 				"node-debug2-adapter",
+				"prettierd",
+				"shfmt",
 			},
 			auto_update = true,
 		},

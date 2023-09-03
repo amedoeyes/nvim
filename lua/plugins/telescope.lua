@@ -42,7 +42,7 @@ return {
 		},
 		{
 			"<leader>fp",
-			"<CMDTelescope projects<CR>",
+			"<CMD>Telescope projects<CR>",
 			desc = "Projects",
 		},
 		{
@@ -57,7 +57,7 @@ return {
 		},
 		{
 			"<leader>uN",
-			"<cmd>Telescope notify<cr>",
+			"<CMD>Telescope notify<CR>",
 			desc = "Notifications history",
 		},
 	},

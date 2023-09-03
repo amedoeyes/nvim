@@ -6,17 +6,20 @@ return {
 
 		return {
 			filetype = {
-				html = {
-					formatter_filetypes.html.prettierd,
-				},
 				c = {
 					formatter_filetypes.c.clangformat,
+				},
+				cmake = {
+					formatter_filetypes.cmake.cmakeformat,
 				},
 				cpp = {
 					formatter_filetypes.cpp.clangformat,
 				},
 				css = {
 					formatter_filetypes.css.prettierd,
+				},
+				html = {
+					formatter_filetypes.html.prettierd,
 				},
 				javascript = {
 					formatter_filetypes.javascript.prettierd,
@@ -39,6 +42,9 @@ return {
 				python = {
 					formatter_filetypes.python.black,
 				},
+				sh = {
+					formatter_filetypes.sh.shfmt,
+				},
 				typescript = {
 					formatter_filetypes.typescript.prettierd,
 				},
@@ -60,7 +66,7 @@ return {
 		vim.api.nvim_create_autocmd("BufWritePost", {
 			group = vim.api.nvim_create_augroup("format_on_save", { clear = true }),
 			callback = function()
-				vim.cmd.FormatWrite()
+				vim.cmd("FormatWrite")
 			end,
 		})
 	end,

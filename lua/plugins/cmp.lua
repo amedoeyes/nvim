@@ -39,10 +39,11 @@ return {
 				}),
 			}),
 			sources = cmp.config.sources({
-				{ name = "luasnip" },
+				-- { name = "cody" },
 				{ name = "nvim_lsp" },
-				{ name = "buffer" },
+				{ name = "luasnip" },
 				{ name = "path" },
+				{ name = "buffer" },
 			}),
 			formatting = {
 				format = lspkind.cmp_format({
@@ -51,7 +52,6 @@ return {
 					symbol_map = icons.kinds,
 					before = function(entry, item)
 						require("tailwindcss-colorizer-cmp").formatter(entry, item)
-
 						return item
 					end,
 				}),
@@ -61,7 +61,6 @@ return {
 					cmp.config.compare.offset,
 					cmp.config.compare.exact,
 					cmp.config.compare.score,
-					cmp.config.compare.recently_used,
 					require("cmp-under-comparator").under,
 					cmp.config.compare.kind,
 					cmp.config.compare.sort_text,

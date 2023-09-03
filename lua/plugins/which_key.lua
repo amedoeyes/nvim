@@ -14,7 +14,6 @@ return {
 			["<leader>f"] = { name = "+files" },
 			["<leader>g"] = { name = "+git" },
 			["<leader>o"] = { name = "+options" },
-			["<leader>q"] = { name = "+sessions" },
 			["<leader>s"] = { name = "+search" },
 			["<leader>t"] = { name = "+terminal" },
 			["<leader>u"] = { name = "+ui" },

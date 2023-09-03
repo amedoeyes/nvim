@@ -5,7 +5,6 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"williamboman/mason-lspconfig.nvim",
 		{ "b0o/SchemaStore.nvim", version = false },
-		"p00f/clangd_extensions.nvim",
 		"pmizio/typescript-tools.nvim",
 	},
 	event = { "BufReadPre", "BufNewFile" },
@@ -14,17 +13,13 @@ return {
 			bashls = {
 				filetypes = { "sh", "zsh" },
 			},
-			lua_ls = {
+			clangd = {},
+			cmake = {},
+			cssls = {},
+			emmet_language_server = {},
+			eslint = {
 				settings = {
-					Lua = {
-						workspace = {
-							checkThirdParty = false,
-						},
-						completion = {
-							callSnippet = "Replace",
-						},
-						telemetry = { enable = false },
-					},
+					workingDirectory = { mode = "auto" },
 				},
 			},
 			jsonls = {
@@ -41,15 +36,21 @@ return {
 					},
 				},
 			},
-			eslint = {
+			lua_ls = {
 				settings = {
-					workingDirectory = { mode = "auto" },
+					Lua = {
+						workspace = {
+							checkThirdParty = false,
+						},
+						completion = {
+							callSnippet = "Replace",
+						},
+						telemetry = { enable = false },
+					},
 				},
 			},
-			tsserver = function()
-				require("typescript-tools").setup({})
-			end,
-			cssls = {},
+			marksman = {},
+			pyright = {},
 			tailwindcss = {
 				root_dir = function(fname)
 					return require("lspconfig").util.root_pattern(
@@ -60,37 +61,10 @@ return {
 					)(fname)
 				end,
 			},
-			emmet_language_server = {},
-			marksman = {},
-			pyright = {},
-			clangd = function()
-				require("clangd_extensions").setup({
-					extensions = {
-						ast = {
-							role_icons = {
-								type = "",
-								declaration = "",
-								expression = "",
-								specifier = "",
-								statement = "",
-								["template argument"] = "",
-							},
-							kind_icons = {
-								Compound = "",
-								Recovery = "",
-								TranslationUnit = "",
-								PackExpansion = "",
-								TemplateTypeParm = "",
-								TemplateTemplateParm = "",
-								TemplateParamObject = "",
-							},
-						},
-						memory_usage = {
-							border = "rounded",
-						},
-						symbol_info = {
-							border = "rounded",
-						},
+			tsserver = function()
+				require("typescript-tools").setup({
+					settings = {
+						tsserver_path = vim.env.PNPM_HOME .. "/global/5/node_modules/typescript/lib/tsserver.js",
 					},
 				})
 			end,

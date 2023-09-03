@@ -35,7 +35,7 @@ return {
 			end,
 		},
 	},
-	event = "VeryLazy",
+	event = "VimEnter",
 	opts = function()
 		local icons = require("core.util").icons
 

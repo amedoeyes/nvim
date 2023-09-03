@@ -1,6 +1,10 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "v3.x",
+	dependencies = {
+		"MunifTanjim/nui.nvim",
+	},
+	event = "VimEnter",
 	opts = {
 		close_if_last_window = true,
 		sources = { "filesystem", "buffers", "git_status", "document_symbols" },

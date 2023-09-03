@@ -1,5 +1,6 @@
 return {
 	"stevearc/dressing.nvim",
+	event = "VimEnter",
 	opts = {
 		input = {
 			win_options = {

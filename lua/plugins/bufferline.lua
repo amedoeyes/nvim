@@ -1,6 +1,6 @@
 return {
 	"akinsho/bufferline.nvim",
-	event = "VeryLazy",
+	event = "VimEnter",
 	opts = function()
 		local groups = require("bufferline.groups")
 

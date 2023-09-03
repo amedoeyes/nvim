@@ -30,7 +30,7 @@ return {
 			desc = "LazyGit",
 		},
 		{
-			"<C-`>",
+			"<leader>tt",
 			function()
 				require("toggleterm").toggle(1, 15, vim.fn.getcwd(), "horizontal")
 			end,

@@ -2,61 +2,27 @@ return {
 	"mhartington/formatter.nvim",
 	event = { "BufReadPre", "BufNewFile" },
 	opts = function()
-		local formatter_filetypes = require("formatter.filetypes")
+		local f = require("formatter.filetypes")
 
 		return {
 			filetype = {
-				c = {
-					formatter_filetypes.c.clangformat,
-				},
-				cmake = {
-					formatter_filetypes.cmake.cmakeformat,
-				},
-				cpp = {
-					formatter_filetypes.cpp.clangformat,
-				},
-				css = {
-					formatter_filetypes.css.prettierd,
-				},
-				html = {
-					formatter_filetypes.html.prettierd,
-				},
-				javascript = {
-					formatter_filetypes.javascript.prettierd,
-				},
-				javascriptreact = {
-					formatter_filetypes.javascriptreact.prettierd,
-				},
-				json = {
-					formatter_filetypes.json.prettierd,
-				},
-				jsonc = {
-					formatter_filetypes.json.prettierd,
-				},
-				lua = {
-					formatter_filetypes.lua.stylua,
-				},
-				markdown = {
-					formatter_filetypes.markdown.prettierd,
-				},
-				python = {
-					formatter_filetypes.python.black,
-				},
-				sh = {
-					formatter_filetypes.sh.shfmt,
-				},
-				typescript = {
-					formatter_filetypes.typescript.prettierd,
-				},
-				typescriptreact = {
-					formatter_filetypes.typescriptreact.prettierd,
-				},
-				zsh = {
-					formatter_filetypes.sh.shfmt,
-				},
-				["*"] = {
-					require("formatter.filetypes.any").remove_trailing_whitespace,
-				},
+				c = { f.c.clangformat },
+				cmake = { f.cmake.cmakeformat },
+				cpp = { f.cpp.clangformat },
+				css = { f.css.prettier },
+				html = { f.html.prettier },
+				javascript = { f.javascript.prettier },
+				javascriptreact = { f.javascriptreact.prettier },
+				jsonc = { f.json.prettier },
+				json = { f.json.prettier },
+				lua = { f.lua.stylua },
+				markdown = { f.markdown.prettier },
+				python = { f.python.black },
+				sh = { f.sh.shfmt },
+				typescript = { f.typescript.prettier },
+				typescriptreact = { f.typescriptreact.prettier },
+				zsh = { f.sh.shfmt },
+				["*"] = { f.any.remove_trailing_whitespace },
 			},
 		}
 	end,
@@ -66,7 +32,7 @@ return {
 		vim.api.nvim_create_autocmd("BufWritePost", {
 			group = vim.api.nvim_create_augroup("format_on_save", { clear = true }),
 			callback = function()
-				vim.cmd("FormatWrite")
+				vim.cmd("FormatWriteLock")
 			end,
 		})
 	end,

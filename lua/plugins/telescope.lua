@@ -55,10 +55,5 @@ return {
 			"<CMD>Telescope lsp_references<CR>",
 			desc = "Go to references",
 		},
-		{
-			"<leader>uN",
-			"<CMD>Telescope notify<CR>",
-			desc = "Notifications history",
-		},
 	},
 }

@@ -16,15 +16,6 @@ return {
 					return math.floor(vim.o.columns * 0.75)
 				end,
 			},
-			keys = {
-				{
-					"<leader>un",
-					function()
-						require("notify").dismiss({ silent = true, pending = true })
-					end,
-					desc = "Dismiss notifications",
-				},
-			},
 		},
 	},
 	opts = {

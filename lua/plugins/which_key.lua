@@ -16,7 +16,6 @@ return {
 			["<leader>o"] = { name = "+options" },
 			["<leader>s"] = { name = "+search" },
 			["<leader>t"] = { name = "+terminal" },
-			["<leader>u"] = { name = "+ui" },
 			["<leader>x"] = { name = "+diagnostics" },
 		},
 		window = {

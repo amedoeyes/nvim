@@ -5,7 +5,6 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"williamboman/mason-lspconfig.nvim",
 		{ "b0o/SchemaStore.nvim", version = false },
-		"pmizio/typescript-tools.nvim",
 	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
@@ -17,21 +16,11 @@ return {
 			cmake = {},
 			cssls = {},
 			emmet_language_server = {},
-			eslint = {
-				settings = {
-					workingDirectory = { mode = "auto" },
-				},
-			},
+			eslint = {},
 			jsonls = {
-				on_new_config = function(new_config)
-					new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-					vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
-				end,
 				settings = {
 					json = {
-						format = {
-							enable = true,
-						},
+						schemas = require("schemastore").json.schemas(),
 						validate = { enable = true },
 					},
 				},
@@ -39,12 +28,7 @@ return {
 			lua_ls = {
 				settings = {
 					Lua = {
-						workspace = {
-							checkThirdParty = false,
-						},
-						completion = {
-							callSnippet = "Replace",
-						},
+						workspace = { checkThirdParty = false },
 						telemetry = { enable = false },
 					},
 				},
@@ -61,13 +45,7 @@ return {
 					)(fname)
 				end,
 			},
-			tsserver = function()
-				require("typescript-tools").setup({
-					settings = {
-						tsserver_path = vim.env.PNPM_HOME .. "/global/5/node_modules/typescript/lib/tsserver.js",
-					},
-				})
-			end,
+			tsserver = {},
 		}
 
 		local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())

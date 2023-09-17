@@ -14,7 +14,7 @@ return {
 				end,
 				diagnostics = "nvim_lsp",
 				diagnostics_indicator = function(_, _, diag)
-					local icons = require("core.util").icons
+					local icons = require("core.icons")
 
 					local ret = (diag.error and icons.diagnostics.Error .. diag.error .. " " or "")
 						.. (diag.warning and icons.diagnostics.Warn .. diag.warning or "")

@@ -10,7 +10,6 @@ return {
 			["gs"] = { name = "+surround" },
 			["<leader>b"] = { name = "+buffers" },
 			["<leader>c"] = { name = "+code" },
-			["<leader>d"] = { name = "+debugger" },
 			["<leader>f"] = { name = "+files" },
 			["<leader>g"] = { name = "+git" },
 			["<leader>o"] = { name = "+options" },

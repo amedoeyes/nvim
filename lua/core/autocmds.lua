@@ -1,5 +1,3 @@
-local util = require("core.util")
-
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -77,13 +75,24 @@ autocmd("BufWritePre", {
 	end,
 })
 
-util.lsp.on_attach(function()
+local lsp = require("core.lsp")
+
+lsp.on_attach(function()
 	local lsp_augroup = augroup("lsp_on_attach", { clear = true })
+
+	autocmd("BufWritePost", {
+		group = lsp_augroup,
+		callback = function()
+			if lsp.config.autoformat then
+				lsp.format()
+			end
+		end,
+	})
 
 	autocmd("BufEnter", {
 		group = lsp_augroup,
 		callback = function()
-			vim.lsp.inlay_hint(0, util.lsp.config.inlay_hint)
+			vim.lsp.inlay_hint(0, lsp.config.inlay_hint)
 		end,
 	})
 end)

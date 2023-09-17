@@ -37,7 +37,7 @@ return {
 	},
 	event = "VimEnter",
 	opts = function()
-		local icons = require("core.util").icons
+		local icons = require("core.icons")
 
 		return {
 			options = {

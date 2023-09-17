@@ -9,11 +9,14 @@ map("v", ">", ">gv", { desc = "Indent right" })
 
 --LSP
 
-util.lsp.on_attach(function(_, buffer)
+local lsp = require("core.lsp")
+
+lsp.on_attach(function(_, buffer)
 	--Code
 
 	map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename", buffer = buffer })
 	map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions", buffer = buffer })
+	map({ "n", "v" }, "<leader>cf", lsp.format, { desc = "Format", buffer = buffer })
 
 	--Diagnostics
 
@@ -32,9 +35,15 @@ util.lsp.on_attach(function(_, buffer)
 
 	--Options
 
+	map("n", "<leader>of", function()
+		util.toggle(lsp.config.autoformat, "Autoformat", function(val)
+			lsp.config.autoformat = val
+		end)
+	end, { desc = "Toggle autoformat", buffer = buffer })
+
 	map("n", "<leader>oi", function()
-		util.toggle(util.lsp.config.inlay_hint, "Inlay hint", function(val)
-			util.lsp.config.inlay_hint = val
+		util.toggle(lsp.config.inlay_hint, "Inlay hint", function(val)
+			lsp.config.inlay_hint = val
 			vim.lsp.inlay_hint(0, val)
 		end)
 	end, { desc = "Toggle inlay hint", buffer = buffer })

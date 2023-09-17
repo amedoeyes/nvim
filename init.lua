@@ -1,5 +1,5 @@
 require("core.options")
 require("core.autocmds")
 require("core.keymaps")
-require("core.util").lsp.setup()
+require("core.lsp").setup()
 require("core.lazy")

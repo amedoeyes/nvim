@@ -4,7 +4,7 @@ return {
 	opts = {
 		show_current_context = true,
 		show_trailing_blankline_indent = false,
-		-- use_treesitter = true,
-		-- use_treesitter_scope = true,
+		use_treesitter = true,
+		use_treesitter_scope = true,
 	},
 }

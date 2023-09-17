@@ -3,72 +3,34 @@ return {
 	dependencies = {
 		{ "folke/neodev.nvim", opts = {} },
 		"hrsh7th/cmp-nvim-lsp",
-		"williamboman/mason-lspconfig.nvim",
 		{ "b0o/SchemaStore.nvim", version = false },
+		"creativenull/efmls-configs-nvim",
 	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local servers = {
-			bashls = {
-				filetypes = { "sh", "zsh" },
-			},
-			clangd = {},
+			bashls = require("core.lsp.bashls"),
+			clangd = require("core.lsp.clangd"),
 			cmake = {},
 			cssls = {},
+			efm = require("core.lsp.efm"),
 			emmet_language_server = {},
 			eslint = {},
-			jsonls = {
-				settings = {
-					json = {
-						schemas = require("schemastore").json.schemas(),
-						validate = { enable = true },
-					},
-				},
-			},
-			lua_ls = {
-				settings = {
-					Lua = {
-						workspace = { checkThirdParty = false },
-						telemetry = { enable = false },
-					},
-				},
-			},
+			jsonls = require("core.lsp.jsonls"),
+			lua_ls = require("core.lsp.lua_ls"),
 			marksman = {},
 			pyright = {},
-			tailwindcss = {
-				root_dir = function(fname)
-					return require("lspconfig").util.root_pattern(
-						"tailwind.config.js",
-						"tailwind.config.cjs",
-						"tailwind.config.mjs",
-						"tailwind.config.ts"
-					)(fname)
-				end,
-			},
+			tailwindcss = require("core.lsp.tailwindcss"),
 			tsserver = {},
 		}
 
 		local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-		local mason_lspconfig = require("mason-lspconfig")
 
-		mason_lspconfig.setup({
-			ensure_installed = vim.tbl_keys(servers),
-		})
+		for server, opts in pairs(servers) do
+			opts = vim.tbl_deep_extend("force", { capabilities = capabilities }, opts)
 
-		mason_lspconfig.setup_handlers({
-			function(server)
-				if type(servers[server]) == "function" then
-					servers[server]()
-					return
-				end
-
-				local server_opts = vim.tbl_deep_extend("force", {
-					capabilities = capabilities,
-				}, servers[server] or {})
-
-				require("lspconfig")[server].setup(server_opts)
-			end,
-		})
+			require("lspconfig")[server].setup(opts)
+		end
 
 		require("lspconfig.ui.windows").default_options.border = "rounded"
 	end,

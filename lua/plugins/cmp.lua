@@ -14,7 +14,7 @@ return {
 	opts = function()
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
-		local icons = require("core.util").icons
+		local icons = require("core.icons")
 
 		return {
 			completion = {
@@ -39,7 +39,7 @@ return {
 				}),
 			}),
 			sources = cmp.config.sources({
-				-- { name = "cody" },
+				{ name = "cody" },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },

@@ -13,7 +13,6 @@ return {
 			clangd = require("core.lsp.clangd"),
 			cmake = {},
 			cssls = {},
-			efm = require("core.lsp.efm"),
 			emmet_language_server = {},
 			eslint = {},
 			jsonls = require("core.lsp.jsonls"),

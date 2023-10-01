@@ -25,7 +25,7 @@ M.format = function()
 	vim.lsp.buf.format({
 		bufnr = buffer,
 		filter = function(c)
-			return c.name == "efm"
+			return c.name == "null-ls"
 		end,
 		timeout_ms = 5000,
 	})

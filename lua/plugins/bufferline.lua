@@ -33,13 +33,9 @@ return {
 				tab_size = 10,
 				show_buffer_close_icons = false,
 				separator_style = { "|", "|" },
-				indicator = {
-					style = "none",
-				},
+				indicator = { style = "none" },
 				groups = {
-					items = {
-						groups.builtin.pinned:with({ icon = "" }),
-					},
+					items = { groups.builtin.pinned:with({ icon = "" }) },
 				},
 			},
 			highlights = require("eyes.theme").bufferline,

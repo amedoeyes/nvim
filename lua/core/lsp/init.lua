@@ -42,6 +42,7 @@ end
 
 M.setup = function()
 	local icons = require("core.icons")
+	vim.lsp.set_log_level("off")
 	vim.diagnostic.config(M.config.diagnostic)
 
 	for name, icon in pairs(icons.diagnostics) do

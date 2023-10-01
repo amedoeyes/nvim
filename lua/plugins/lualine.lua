@@ -44,7 +44,7 @@ return {
 				theme = "eyes",
 				globalstatus = true,
 				disabled_filetypes = {
-					statusline = { "dashboard", "alpha" },
+					statusline = { "dashboard" },
 				},
 				section_separators = "",
 				component_separators = "",
@@ -76,17 +76,6 @@ return {
 				},
 				lualine_x = {
 					{ "require('lsp-progress').progress()" },
-				},
-				lualine_y = {
-					{
-						function()
-							return require("noice").api.status.command.get()
-						end,
-						cond = function()
-							return package.loaded["noice"] and require("noice").api.status.command.has()
-						end,
-						color = false,
-					},
 					{
 						function()
 							return require("noice").api.status.mode.get()
@@ -97,8 +86,10 @@ return {
 						color = false,
 					},
 				},
-				lualine_z = {
+				lualine_y = {
 					{ "progress" },
+				},
+				lualine_z = {
 					{ "location" },
 				},
 			},

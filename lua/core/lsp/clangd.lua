@@ -4,8 +4,10 @@ return {
 		"--background-index",
 		"--clang-tidy",
 		"--completion-style=detailed",
-		"--suggest-missing-includes",
+		"--fallback-style=google",
+		"--function-arg-placeholders",
 		"--header-insertion=iwyu",
+		"--suggest-missing-includes",
 	},
 	capabilities = {
 		offsetEncoding = { "utf-16" },

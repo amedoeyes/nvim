@@ -80,7 +80,7 @@ local lsp = require("core.lsp")
 lsp.on_attach(function()
 	local lsp_augroup = augroup("lsp_on_attach", { clear = true })
 
-	autocmd("BufWritePost", {
+	autocmd("BufWritePre", {
 		group = lsp_augroup,
 		callback = function()
 			if lsp.config.autoformat then

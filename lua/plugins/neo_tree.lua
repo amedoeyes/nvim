@@ -14,14 +14,11 @@ return {
 			},
 		},
 		filesystem = {
-			cwd_target = { sidebar = "global" },
 			follow_current_file = { enabled = true },
 			use_libuv_file_watcher = true,
 		},
 		default_component_configs = {
-			indent = {
-				with_expanders = true,
-			},
+			indent = { with_expanders = true },
 		},
 	},
 	config = function(_, opts)

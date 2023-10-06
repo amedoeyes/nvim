@@ -4,7 +4,6 @@ return {
 		{ "folke/neodev.nvim", opts = {} },
 		"hrsh7th/cmp-nvim-lsp",
 		{ "b0o/SchemaStore.nvim", version = false },
-		"creativenull/efmls-configs-nvim",
 	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()

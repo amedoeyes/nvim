@@ -38,12 +38,7 @@ return {
 		{
 			"<leader>fs",
 			"<cmd>Telescope live_grep<cr>",
-			desc = "Search file",
-		},
-		{
-			"<leader>fp",
-			"<CMD>Telescope projects<CR>",
-			desc = "Projects",
+			desc = "Search files",
 		},
 		{
 			"<leader>xs",

@@ -13,10 +13,15 @@ end
 ---@param exclude table
 ---@param filetypes table
 ---@return table
-M.filetypes_exclude = function(exclude, filetypes)
+M.exclude_filetypes = function(exclude, filetypes)
 	return vim.tbl_filter(function(ft)
 		return not vim.tbl_contains(exclude, ft)
 	end, filetypes)
+end
+
+---@return string | nil
+M.get_git_root = function()
+	return vim.fn.fnamemodify(vim.fn.finddir(".git", ";"), ":h")
 end
 
 return M

@@ -6,7 +6,6 @@ g.maplocalleader = " "
 
 opt.clipboard = "unnamedplus"
 opt.formatoptions = "jcroqlnt"
-opt.autochdir = true
 opt.scrolloff = 4
 opt.sidescrolloff = 8
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }

@@ -1,5 +1,6 @@
 return {
 	"sourcegraph/sg.nvim",
+	enabled = false,
 	dependencies = { "nvim-lua/plenary.nvim" },
 	event = "VeryLazy",
 	opts = {

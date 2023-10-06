@@ -27,7 +27,6 @@ return {
 						text = "Neo-tree",
 						highlight = "Directory",
 						text_align = "left",
-						separator = true,
 					},
 				},
 				tab_size = 10,

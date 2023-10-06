@@ -11,7 +11,6 @@ return {
 				"cmake-language-server",
 				"cmakelang",
 				"css-lsp",
-				"efm",
 				"emmet-language-server",
 				"eslint-lsp",
 				"flake8",

@@ -37,7 +37,7 @@ opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.termguicolors = true
 
 opt.fillchars:append({ eob = " " })
-opt.listchars:append({ trail = " ", tab = "│ " })
+opt.listchars:append({ trail = " ", tab = "  " })
 
 opt.wildmode = "longest:full,full"
 opt.completeopt = "menu,menuone,noinsert"

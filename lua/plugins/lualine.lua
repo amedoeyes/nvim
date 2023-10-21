@@ -1,40 +1,5 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = {
-		{
-			"linrongbin16/lsp-progress.nvim",
-			opts = {
-				spinner = {
-					"",
-					"󰪞",
-					"󰪟",
-					"󰪠",
-					"󰪡",
-					"󰪢",
-					"󰪣",
-					"󰪤",
-					"󰪥",
-				},
-				client_format = function(client_name, spinner, series_messages)
-					return #series_messages > 0 and (client_name .. " " .. spinner)
-				end,
-
-				format = function(client_messages)
-					return #client_messages > 0 and (table.concat(client_messages, " "))
-				end,
-			},
-			config = function(_, opts)
-				require("lsp-progress").setup(opts)
-
-				vim.api.nvim_create_autocmd("User LspProgressStatusUpdated", {
-					group = vim.api.nvim_create_augroup("lualine_augroup", {}),
-					callback = function()
-						require("lualine").refresh()
-					end,
-				})
-			end,
-		},
-	},
 	event = "VimEnter",
 	opts = function()
 		local icons = require("core.icons")
@@ -75,13 +40,12 @@ return {
 					},
 				},
 				lualine_x = {
-					{ "require('lsp-progress').progress()" },
 					{
 						function()
 							return require("noice").api.status.mode.get()
 						end,
 						cond = function()
-							return package.loaded["noice"] and require("noice").api.status.mode.has()
+							return require("noice").api.status.mode.has()
 						end,
 						color = false,
 					},

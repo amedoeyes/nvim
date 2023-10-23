@@ -20,14 +20,10 @@ return {
 					return "<Plug>luasnip-jump-next"
 				end
 
-				if string.find(vim.fn["codeium#GetStatusString"](), "/") then
-					return vim.fn["codeium#Accept"]()
-				end
-
 				return "<tab>"
 			end,
 			mode = "i",
-			desc = "Luasnip/Codeium/Tab",
+			desc = "Luasnip/Tab",
 			expr = true,
 			silent = true,
 		},

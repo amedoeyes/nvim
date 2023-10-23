@@ -39,7 +39,7 @@ return {
 				}),
 			}),
 			sources = cmp.config.sources({
-				{ name = "cody" },
+				{ name = "codeium" },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
@@ -47,7 +47,7 @@ return {
 			}),
 			formatting = {
 				format = lspkind.cmp_format({
-					maxwidth = 20,
+					maxwidth = 30,
 					ellipsis_char = "…",
 					symbol_map = icons.kinds,
 					before = function(entry, item)

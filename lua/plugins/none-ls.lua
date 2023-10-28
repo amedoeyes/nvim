@@ -15,6 +15,7 @@ return {
 
 				nls.builtins.diagnostics.cmake_lint,
 				nls.builtins.diagnostics.flake8,
+				nls.builtins.diagnostics.shellcheck,
 			},
 			border = "rounded",
 		}

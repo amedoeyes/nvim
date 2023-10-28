@@ -7,6 +7,7 @@ return {
 	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
+		local lspconfig = require("lspconfig")
 		local servers = {
 			bashls = require("core.lsp.bashls"),
 			clangd = require("core.lsp.clangd"),
@@ -27,7 +28,7 @@ return {
 		for server, opts in pairs(servers) do
 			opts = vim.tbl_deep_extend("force", { capabilities = capabilities }, opts)
 
-			require("lspconfig")[server].setup(opts)
+			lspconfig[server].setup(opts)
 		end
 
 		require("lspconfig.ui.windows").default_options.border = "rounded"

@@ -1,5 +1,13 @@
 local M = {}
 
+M.dap = {
+	Stopped = "",
+	Breakpoint = "",
+	BreakpointCondition = "",
+	BreakpointRejected = "",
+	LogPoint = "",
+}
+
 M.diagnostics = {
 	Error = " ",
 	Warn = " ",

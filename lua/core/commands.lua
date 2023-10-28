@@ -20,5 +20,5 @@ command("CreateBash", function()
 end, {})
 
 command("ProjectRoot", function()
-	vim.cmd("cd " .. util.get_git_root())
+	vim.cmd("cd " .. util.get_root())
 end, {})

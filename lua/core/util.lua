@@ -20,8 +20,18 @@ M.exclude_filetypes = function(exclude, filetypes)
 end
 
 ---@return string | nil
-M.get_git_root = function()
-	return vim.fn.fnamemodify(vim.fn.finddir(".git", ";"), ":h")
+M.get_root = function()
+	local git_root = vim.fn.finddir(".git", ";")
+	local parent = vim.api.nvim_buf_get_name(0)
+	local dir = ""
+
+	if git_root == "" then
+		dir = parent
+	else
+		dir = git_root
+	end
+
+	return vim.fn.fnamemodify(dir, ":h")
 end
 
 return M

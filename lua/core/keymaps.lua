@@ -1,5 +1,4 @@
 local util = require("core.util")
-
 local map = vim.keymap.set
 
 --Code
@@ -9,14 +8,11 @@ map("v", ">", ">gv", { desc = "Indent right" })
 
 --LSP
 
-local lsp = require("core.lsp")
-
-lsp.on_attach(function(_, buffer)
+util.lsp_on_attach(function(_, buffer)
 	--Code
 
 	map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename", buffer = buffer })
 	map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions", buffer = buffer })
-	map({ "n", "v" }, "<leader>cf", lsp.format, { desc = "Format", buffer = buffer })
 
 	--Diagnostics
 
@@ -36,16 +32,14 @@ lsp.on_attach(function(_, buffer)
 	--Options
 
 	map("n", "<leader>of", function()
-		util.toggle(lsp.config.autoformat, "Autoformat", function(val)
-			lsp.config.autoformat = val
-		end)
+		vim.g.autoformat = not vim.g.autoformat
+		util.toggle_notify("Autoformat", vim.g.autoformat)
 	end, { desc = "Toggle autoformat", buffer = buffer })
 
 	map("n", "<leader>oi", function()
-		util.toggle(lsp.config.inlay_hint, "Inlay hint", function(val)
-			lsp.config.inlay_hint = val
-			vim.lsp.inlay_hint(0, val)
-		end)
+		vim.g.inlayhint = not vim.g.inlayhint
+		vim.lsp.inlay_hint(0, vim.g.inlayhint)
+		util.toggle_notify("Inlay hint", vim.g.inlayhint)
 	end, { desc = "Toggle inlay hint", buffer = buffer })
 end)
 
@@ -57,16 +51,9 @@ map("n", "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Previous line", expr = true
 --Options
 
 map("n", "<leader>os", function()
-	util.toggle(vim.o.spell, "Spell", function(val)
-		vim.o.spell = val
-	end)
+	vim.o.spell = not vim.o.spell
+	util.toggle_notify("Spell", vim.o.spell)
 end, { desc = "Toggle spell" })
-
-map("n", "<leader>oc", function()
-	util.toggle(vim.g.codeium_enabled, "Codeium", function(val)
-		vim.g.codeium_enabled = val
-	end)
-end, { desc = "Toggle Codeium" })
 
 --Search
 

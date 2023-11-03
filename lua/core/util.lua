@@ -1,22 +1,18 @@
 local M = {}
 
----@param val boolean
----@param name string
----@param callback function(val)
-M.toggle = function(val, name, callback)
-	val = not val
-	vim.notify(name .. ": " .. (val and "on" or "off"), vim.log.levels.INFO)
-
-	callback(val)
+---@param on_attach function
+M.lsp_on_attach = function(on_attach)
+	vim.api.nvim_create_autocmd("LspAttach", {
+		callback = function(e)
+			on_attach(vim.lsp.get_client_by_id(e.data.client_id), e.buf)
+		end,
+	})
 end
 
----@param exclude table
----@param filetypes table
----@return table
-M.exclude_filetypes = function(exclude, filetypes)
-	return vim.tbl_filter(function(ft)
-		return not vim.tbl_contains(exclude, ft)
-	end, filetypes)
+---@param name string
+---@param val boolean
+M.toggle_notify = function(name, val)
+	vim.notify(name .. ": " .. (val and "enabled" or "disabled"), vim.log.levels.INFO)
 end
 
 ---@return string | nil

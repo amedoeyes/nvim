@@ -4,6 +4,9 @@ local g = vim.g
 g.mapleader = " "
 g.maplocalleader = " "
 
+g.autoformat = true
+g.inlayhint = false
+
 opt.clipboard = "unnamedplus"
 opt.formatoptions = "jcroqlnt"
 opt.scrolloff = 4

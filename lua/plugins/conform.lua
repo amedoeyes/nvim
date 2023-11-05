@@ -39,8 +39,6 @@ return {
 				return
 			end
 
-			vim.notify("Formatting...", vim.log.levels.INFO)
-
 			return {
 				timeout_ms = 500,
 				lsp_fallback = true,
@@ -51,8 +49,6 @@ return {
 		{
 			"<leader>cf",
 			function()
-				vim.notify("Formatting...", vim.log.levels.INFO)
-
 				require("conform").format({
 					timeout_ms = 500,
 					lsp_fallback = true,

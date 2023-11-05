@@ -1,6 +1,6 @@
+local util = require("core.util")
 local command = vim.api.nvim_create_user_command
 local fn = vim.fn
-local util = require("core.util")
 
 command("CreateBash", function()
 	local path = fn.input("Path: ", fn.getcwd() .. "/", "file")

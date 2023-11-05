@@ -36,7 +36,7 @@ opt.foldlevel = 99
 
 opt.laststatus = 0
 opt.showmode = false
-opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.shortmess:append({ I = true, c = true })
 opt.termguicolors = true
 
 opt.fillchars:append({ eob = " " })

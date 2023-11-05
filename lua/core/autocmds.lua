@@ -64,7 +64,7 @@ autocmd("FileType", {
 })
 
 autocmd("BufWritePre", {
-	group = augroup("auto_create_dir", { clear = true }),
+	group = augroup("create_dir", { clear = true }),
 	callback = function(event)
 		if event.match:match("^%w%w+://") then
 			return
@@ -73,6 +73,13 @@ autocmd("BufWritePre", {
 		local file = vim.loop.fs_realpath(event.match) or event.match
 
 		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+	end,
+})
+
+autocmd("VimEnter", {
+	group = augroup("cd_root", { clear = true }),
+	callback = function()
+		vim.cmd("cd " .. util.get_root())
 	end,
 })
 

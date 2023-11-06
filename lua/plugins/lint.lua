@@ -11,7 +11,7 @@ return {
 		}
 
 		local linters = {
-			betty_style = require("linters.betty_styles"),
+			betty_style = require("linters.betty_style"),
 			betty_doc = require("linters.betty_doc"),
 		}
 

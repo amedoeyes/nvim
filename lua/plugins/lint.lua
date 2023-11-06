@@ -1,17 +1,24 @@
 return {
 	"mfussenegger/nvim-lint",
 	event = { "BufReadPre", "BufNewFile" },
-	opts = {
-		linters_by_ft = {
+	config = function()
+		local linters_by_ft = {
 			python = { "flake8" },
 			sh = { "shellcheck" },
 			zsh = { "shellcheck" },
-		},
-	},
-	config = function(_, opts)
+			c = { "betty_style", "betty_doc" },
+			cpp = { "betty_style", "betty_doc" },
+		}
+
+		local linters = {
+			betty_style = require("linters.betty_styles"),
+			betty_doc = require("linters.betty_doc"),
+		}
+
 		local lint = require("lint")
 
-		lint.linters_by_ft = opts.linters_by_ft
+		lint.linters_by_ft = linters_by_ft
+		lint.linters = linters
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "TextChanged", "TextChangedI" }, {
 			group = vim.api.nvim_create_augroup("lint", { clear = true }),

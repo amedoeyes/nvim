@@ -54,7 +54,7 @@ return {
 	config = function()
 		local dap = require("dap")
 		local debuggers = {
-			codelldb = require("core.dap.codelldb"),
+			codelldb = require("dap.codelldb"),
 		}
 
 		for debugger, opts in pairs(debuggers) do

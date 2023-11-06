@@ -12,18 +12,18 @@ return {
 		local lspconfig = require("lspconfig")
 
 		local servers = {
-			bashls = require("core.lsp.bashls"),
-			clangd = require("core.lsp.clangd"),
+			bashls = require("lsp.bashls"),
+			clangd = require("lsp.clangd"),
 			cmake = {},
 			cssls = {},
 			emmet_language_server = {},
 			eslint = {},
-			jsonls = require("core.lsp.jsonls"),
-			lua_ls = require("core.lsp.lua_ls"),
+			jsonls = require("lsp.jsonls"),
+			lua_ls = require("lsp.lua_ls"),
 			marksman = {},
 			pyright = {},
 			r_language_server = {},
-			tailwindcss = require("core.lsp.tailwindcss"),
+			tailwindcss = require("lsp.tailwindcss"),
 			tsserver = {},
 		}
 

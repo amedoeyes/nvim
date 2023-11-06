@@ -23,16 +23,8 @@ return {
 			["_"] = { "trim_whitespace" },
 		},
 		formatters = {
-			gersemi = {
-				command = "gersemi",
-				args = { "-" },
-				stdin = true,
-			},
-			clang_format = {
-				command = "clang-format",
-				args = { "--assume-filename", "$FILENAME" },
-				stdin = true,
-			},
+			gersemi = require("formatters.gersemi"),
+			clang_format = require("formatters.clang_format"),
 		},
 		format_on_save = function()
 			if not vim.g.autoformat then

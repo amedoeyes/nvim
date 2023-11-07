@@ -1,7 +1,7 @@
 return {
 	settings = {
 		Lua = {
-			workspace = { checkThirdParty = false },
+			workspace = { checkThirdParty = "Disable" },
 			telemetry = { enable = false },
 			completion = { callSnippet = "Replace" },
 		},

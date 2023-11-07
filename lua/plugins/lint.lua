@@ -18,10 +18,9 @@ return {
 		}
 
 		lint.linters_by_ft = linters_by_ft
-		lint.linters = vim.tbl_extend("keep", lint.linters, linters)
 
-		for _, value in ipairs(lint.linters) do
-			vim.notify(vim.inspect(value), vim.log.levels.INFO)
+		for linter, opts in pairs(linters) do
+			lint.linters[linter] = opts
 		end
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "TextChanged", "TextChangedI" }, {

@@ -89,7 +89,7 @@ util.lsp_on_attach(function()
 	autocmd("BufEnter", {
 		group = lsp_augroup,
 		callback = function()
-			vim.lsp.inlay_hint(0, vim.g.inlayhint)
+			vim.lsp.inlay_hint.enable(0, vim.g.inlayhint)
 		end,
 	})
 end)

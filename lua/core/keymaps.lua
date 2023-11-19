@@ -38,7 +38,7 @@ util.lsp_on_attach(function(_, buffer)
 
 	map("n", "<leader>oi", function()
 		vim.g.inlayhint = not vim.g.inlayhint
-		vim.lsp.inlay_hint(0, vim.g.inlayhint)
+		vim.lsp.inlay_hint.enable(0, vim.g.inlayhint)
 		util.toggle_notify("Inlay hint", vim.g.inlayhint)
 	end, { desc = "Toggle inlay hint", buffer = buffer })
 end)

@@ -4,6 +4,7 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	opts = {
 		formatters_by_ft = {
+			asm = { "asmfmt" },
 			cmake = { "gersemi" },
 			cpp = { "clang_format" },
 			c = { "clang_format" },
@@ -23,6 +24,7 @@ return {
 			["_"] = { "trim_whitespace" },
 		},
 		formatters = {
+			asmfmt = require("formatters.asmfmt"),
 			gersemi = require("formatters.gersemi"),
 			clang_format = require("formatters.clang_format"),
 		},

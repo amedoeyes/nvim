@@ -5,6 +5,8 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		opts = {
 			ensure_installed = {
+				"asm-lsp",
+				"asmfmt",
 				"bash-language-server",
 				"black",
 				"clangd",

@@ -16,18 +16,28 @@ M.toggle_notify = function(name, val)
 end
 
 ---@return string | nil
-M.get_root = function()
-	local git_root = vim.fn.finddir(".git", ";")
-	local parent = vim.api.nvim_buf_get_name(0)
-	local dir = ""
+M.get_root_dir = function()
+	local patterns = { ".git" }
+	local root_dir = ""
 
-	if git_root == "" then
-		dir = parent
-	else
-		dir = git_root
+	for _, pattern in ipairs(patterns) do
+		local pattern_dir = vim.fn.finddir(pattern, ";")
+		local pattern_file = vim.fn.findfile(pattern, ";")
+
+		if pattern_dir ~= "" then
+			root_dir = pattern_dir
+			break
+		elseif pattern_file ~= "" then
+			root_dir = pattern_file
+			break
+		end
 	end
 
-	return vim.fn.fnamemodify(dir, ":h")
+	if root_dir ~= "" then
+		return vim.fn.fnamemodify(root_dir, ":h")
+	else
+		return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h")
+	end
 end
 
 return M

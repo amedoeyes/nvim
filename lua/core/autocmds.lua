@@ -79,7 +79,7 @@ autocmd("BufWritePre", {
 autocmd("VimEnter", {
 	group = augroup("cd_root", { clear = true }),
 	callback = function()
-		vim.cmd("cd " .. util.get_root())
+		vim.cmd("cd " .. util.get_root_dir())
 	end,
 })
 

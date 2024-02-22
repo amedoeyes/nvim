@@ -11,20 +11,18 @@ return {
 			},
 		},
 	},
-	config = true,
 	keys = {
 		{
 			"<leader>gg",
 			function()
-				local Terminal = require("toggleterm.terminal").Terminal
-
-				local lazygit = Terminal:new({
-					cmd = "lazygit",
-					direction = "float",
-					dir = vim.fn.getcwd(),
-				})
-
-				lazygit:toggle()
+				require("toggleterm.terminal").Terminal
+					:new({
+						count = 2,
+						cmd = "lazygit",
+						direction = "float",
+						dir = vim.fn.getcwd(),
+					})
+					:toggle()
 			end,
 			mode = { "n", "t" },
 			desc = "LazyGit",
@@ -32,26 +30,18 @@ return {
 		{
 			"<leader>tt",
 			function()
-				require("toggleterm").toggle(1, 15, vim.fn.getcwd(), "horizontal")
+				require("toggleterm").toggle(1, 10, vim.fn.getcwd(), "horizontal")
 			end,
 			mode = { "n", "t" },
-			desc = "Toggle terminal",
-		},
-		{
-			"<leader>th",
-			function()
-				require("toggleterm").toggle(1, 15, vim.fn.getcwd(), "horizontal")
-			end,
-			mode = { "n", "t" },
-			desc = "Open horizontal terminal",
+			desc = "Horizontal terminal",
 		},
 		{
 			"<leader>tv",
 			function()
-				require("toggleterm").toggle(1, 75, vim.fn.getcwd(), "vertical")
+				require("toggleterm").toggle(1, 80, vim.fn.getcwd(), "vertical")
 			end,
 			mode = { "n", "t" },
-			desc = "Open vertical terminal",
+			desc = "Vertical terminal",
 		},
 		{
 			"<leader>tf",
@@ -59,7 +49,7 @@ return {
 				require("toggleterm").toggle(1, 0, vim.fn.getcwd(), "float")
 			end,
 			mode = { "n", "t" },
-			desc = "Open floating terminal",
+			desc = "Floating terminal",
 		},
 	},
 }

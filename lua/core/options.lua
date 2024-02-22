@@ -19,6 +19,7 @@ opt.linebreak = true
 
 opt.cursorline = true
 opt.mouse = "a"
+opt.guicursor:append("a:blinkon100-blinkoff100")
 
 opt.number = true
 opt.relativenumber = true

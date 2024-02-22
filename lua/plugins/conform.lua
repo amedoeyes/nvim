@@ -23,11 +23,6 @@ return {
 			zsh = { "shfmt" },
 			["_"] = { "trim_whitespace" },
 		},
-		formatters = {
-			asmfmt = require("formatters.asmfmt"),
-			gersemi = require("formatters.gersemi"),
-			clang_format = require("formatters.clang_format"),
-		},
 		format_on_save = function()
 			if not vim.g.autoformat then
 				return

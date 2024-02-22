@@ -97,6 +97,14 @@ return {
 		{
 			"<leader>dc",
 			function()
+				if vim.fn.filereadable(".vscode/launch.json") then
+					require("dap.ext.vscode").load_launchjs(
+						nil,
+						vim.tbl_map(function(t)
+							return t.filetypes
+						end, require("debuggers"))
+					)
+				end
 				require("dap").continue()
 			end,
 			desc = "Debugger continue",

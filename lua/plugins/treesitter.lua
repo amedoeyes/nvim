@@ -6,12 +6,14 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	opts = {
 		ensure_installed = {
+			"arduino",
 			"bash",
 			"c",
 			"cmake",
 			"comment",
 			"cpp",
 			"css",
+			"glsl",
 			"html",
 			"javascript",
 			"json",
@@ -25,7 +27,6 @@ return {
 			"markdown_inline",
 			"python",
 			"query",
-			"r",
 			"regex",
 			"tsx",
 			"typescript",

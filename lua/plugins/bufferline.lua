@@ -61,5 +61,15 @@ return {
 			"<cmd>BufferLineGroupClose ungrouped<cr>",
 			desc = "Remove ungrouped buffers",
 		},
+		{
+			"<leader>bl",
+			"<cmd>BufferLineMoveNext<cr>",
+			desc = "Move buffer right",
+		},
+		{
+			"<leader>bh",
+			"<cmd>BufferLineMovePrev<cr>",
+			desc = "Move buffer left",
+		},
 	},
 }

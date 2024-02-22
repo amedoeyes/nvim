@@ -53,20 +53,14 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local dap = require("dap")
-		local debuggers = {
-			codelldb = require("dap.codelldb"),
-		}
-
-		for debugger, opts in pairs(debuggers) do
+		for debugger, opts in pairs(require("debuggers")) do
 			dap.adapters[debugger] = opts.adapter
-
 			for _, filetype in pairs(opts.filetypes) do
 				dap.configurations[filetype] = opts.configurations
 			end
 		end
 
 		local icons = require("core.icons")
-
 		for name, sign in pairs(icons.dap) do
 			vim.fn.sign_define("Dap" .. name, { text = sign })
 		end

@@ -2,12 +2,11 @@ local util = require("core.util")
 local command = vim.api.nvim_create_user_command
 local fn = vim.fn
 
-command("CreateBash", function()
-	local path = fn.input("Path: ", fn.getcwd() .. "/", "file")
+local function create_script(path, shabang)
 	local file = io.open(path, "w")
 
 	if file then
-		file:write("#!/bin/bash\n\n")
+		file:write(shabang .. "\n\n")
 		file:close()
 
 		fn.system("chmod +x " .. path)
@@ -17,6 +16,16 @@ command("CreateBash", function()
 	else
 		vim.notify("Failed to create file", vim.log.levels.ERROR)
 	end
+end
+
+command("CreateBash", function()
+	local path = fn.input("Path: ", fn.getcwd() .. "/", "file")
+	create_script(path, "#!/usr/bin/env bash")
+end, {})
+
+command("CreatePython", function()
+	local path = fn.input("Path: ", fn.getcwd() .. "/", "file")
+	create_script(path, "#!/usr/bin/python3")
 end, {})
 
 command("ProjectRoot", function()

@@ -1,0 +1,16 @@
+return {
+	arduino_language_server = {},
+	bashls = require("language_servers.bashls"),
+	clangd = require("language_servers.clangd"),
+	cmake = {},
+	cssls = {},
+	emmet_language_server = {},
+	eslint = {},
+	glsl_analyzer = {},
+	jsonls = require("language_servers.jsonls"),
+	lua_ls = require("language_servers.lua_ls"),
+	marksman = {},
+	pylsp = {},
+	tailwindcss = require("language_servers.tailwindcss"),
+	tsserver = {},
+}

@@ -6,7 +6,6 @@ return {
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"saadparwaiz1/cmp_luasnip",
-		{ "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
 		"onsails/lspkind.nvim",
 		"lukas-reineke/cmp-under-comparator",
 	},
@@ -50,8 +49,8 @@ return {
 					maxwidth = 30,
 					ellipsis_char = "…",
 					symbol_map = icons.kinds,
-					before = function(entry, item)
-						require("tailwindcss-colorizer-cmp").formatter(entry, item)
+					before = function(_, item)
+						item.menu = nil
 						return item
 					end,
 				}),

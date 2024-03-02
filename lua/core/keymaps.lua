@@ -12,15 +12,15 @@ util.lsp_on_attach(function(_, buffer)
 	--Code
 
 	map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename", buffer = buffer })
-	map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions", buffer = buffer })
+	map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Actions", buffer = buffer })
 
 	--Diagnostics
 
-	map("n", "<leader>xx", vim.diagnostic.open_float, { desc = "Diagnostic", buffer = buffer })
+	map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Diagnostic", buffer = buffer })
 
 	--Documentation
 
-	map("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation", buffer = buffer })
+	map("n", "K", vim.lsp.buf.hover, { desc = "Documentation", buffer = buffer })
 
 	--Go to
 

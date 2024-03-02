@@ -1,5 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
+	dependencies = "nvim-tree/nvim-web-devicons",
 	event = "VimEnter",
 	opts = function()
 		local icons = require("core.icons")
@@ -39,17 +40,7 @@ return {
 						file_status = false,
 					},
 				},
-				lualine_x = {
-					{
-						function()
-							return require("noice").api.status.mode.get()
-						end,
-						cond = function()
-							return require("noice").api.status.mode.has()
-						end,
-						color = false,
-					},
-				},
+				lualine_x = {},
 				lualine_y = {
 					{ "progress" },
 				},
@@ -57,7 +48,7 @@ return {
 					{ "location" },
 				},
 			},
-			extensions = { "lazy", "neo-tree", "toggleterm", "trouble" },
+			extensions = { "lazy", "neo-tree", "toggleterm" },
 		}
 	end,
 }

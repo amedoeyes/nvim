@@ -1,17 +1,13 @@
 return {
-	"echasnovski/mini.surround",
+	"echasnovski/mini.comment",
+	version = false,
+	dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
 	event = { "BufReadPre", "BufNewFile" },
 	opts = {
-		mappings = {
-			add = "gsa",
-			delete = "gsd",
-			find = "gsf",
-			find_left = "gsF",
-			highlight = "gsh",
-			replace = "gsr",
-			update_n_lines = "gsn",
-			suffix_next = "]",
-			suffix_last = "[",
+		options = {
+			custom_commentstring = function()
+				return require("ts_context_commentstring").calculate_commentstring() or vim.bo.commentstring
+			end,
 		},
 	},
 }

@@ -4,7 +4,6 @@ return {
 	dependencies = {
 		"MunifTanjim/nui.nvim",
 		{
-
 			"rcarriga/nvim-notify",
 			opts = {
 				render = "minimal",

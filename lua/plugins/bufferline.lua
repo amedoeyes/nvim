@@ -1,9 +1,9 @@
 return {
 	"akinsho/bufferline.nvim",
+	dependencies = "nvim-tree/nvim-web-devicons",
 	event = "VimEnter",
 	opts = function()
 		local groups = require("bufferline.groups")
-
 		return {
 			options = {
 				close_command = function(n)

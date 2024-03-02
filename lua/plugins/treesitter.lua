@@ -1,9 +1,5 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	version = false,
-	build = ":TSUpdate",
-	cmd = { "TSUpdateSync" },
-	event = { "BufReadPre", "BufNewFile" },
 	opts = {
 		ensure_installed = {
 			"arduino",

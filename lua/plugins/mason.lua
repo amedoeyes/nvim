@@ -1,7 +1,13 @@
 return {
-	"williamboman/mason.nvim",
-	build = ":MasonUpdate",
-	dependencies = {
+	{
+		"williamboman/mason.nvim",
+		opts = {
+			ui = {
+				border = "rounded",
+			},
+		},
+	},
+	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		opts = {
 			ensure_installed = {
@@ -30,11 +36,6 @@ return {
 				"typescript-language-server",
 			},
 			auto_update = false,
-		},
-	},
-	opts = {
-		ui = {
-			border = "rounded",
 		},
 	},
 }

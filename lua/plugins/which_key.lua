@@ -14,9 +14,7 @@ return {
 			["<leader>f"] = { name = "+files" },
 			["<leader>g"] = { name = "+git" },
 			["<leader>o"] = { name = "+options" },
-			["<leader>s"] = { name = "+search" },
 			["<leader>t"] = { name = "+terminal" },
-			["<leader>x"] = { name = "+diagnostics" },
 		},
 		window = {
 			border = "rounded",
@@ -24,7 +22,6 @@ return {
 	},
 	config = function(_, opts)
 		local wk = require("which-key")
-
 		wk.setup(opts)
 		wk.register(opts.defaults)
 	end,

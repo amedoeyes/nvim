@@ -1,5 +1,6 @@
 return {
 	"echasnovski/mini.bufremove",
+	version = false,
 	event = { "BufReadPre", "BufNewFile" },
 	keys = {
 		{

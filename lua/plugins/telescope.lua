@@ -1,6 +1,7 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.2",
+	branch = "0.1.x",
+	dependencies = "nvim-lua/plenary.nvim",
 	event = "VeryLazy",
 	opts = {
 		defaults = {
@@ -19,11 +20,6 @@ return {
 			"<leader>bs",
 			"<cmd>Telescope current_buffer_fuzzy_find<cr>",
 			desc = "Search buffer",
-		},
-		{
-			"<leader>cs",
-			"<cmd>Telescope spell_suggest<cr>",
-			desc = "Spell suggestions",
 		},
 		{
 			"<leader>fr",

@@ -1,6 +1,5 @@
 return {
 	"hrsh7th/nvim-cmp",
-	version = false,
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
@@ -8,13 +7,13 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 		"onsails/lspkind.nvim",
 		"lukas-reineke/cmp-under-comparator",
+		{ "Exafunction/codeium.nvim", dependencies = "nvim-lua/plenary.nvim", opts = {} },
 	},
 	event = "InsertEnter",
 	opts = function()
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
 		local icons = require("core.icons")
-
 		return {
 			completion = {
 				completeopt = "menu,menuone,noinsert",

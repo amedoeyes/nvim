@@ -2,6 +2,8 @@ return {
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "v3.x",
 	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"nvim-tree/nvim-web-devicons",
 		"MunifTanjim/nui.nvim",
 	},
 	event = "VimEnter",
@@ -34,11 +36,11 @@ return {
 	end,
 	keys = {
 		{
-			"<leader>fe",
+			"<leader>ft",
 			function()
 				require("neo-tree.command").execute({ toggle = true, dir = vim.fn.getcwd() })
 			end,
-			desc = "Files explorer",
+			desc = "Files tree",
 		},
 	},
 }

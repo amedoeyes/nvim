@@ -17,8 +17,13 @@ vim.diagnostic.config({
 })
 
 local icons = require("core.icons")
-
-for name, icon in pairs(icons.diagnostics) do
-	name = "DiagnosticSign" .. name
-	vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-end
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+			[vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
+			[vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
+			[vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+		},
+	},
+})

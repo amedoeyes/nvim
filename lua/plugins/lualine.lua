@@ -40,7 +40,17 @@ return {
 						file_status = false,
 					},
 				},
-				lualine_x = {},
+				lualine_x = {
+					{
+						function()
+							return require("noice").api.status.mode.get()
+						end,
+						cond = function()
+							return require("noice").api.status.mode.has()
+						end,
+						color = false,
+					},
+				},
 				lualine_y = {
 					{ "progress" },
 				},

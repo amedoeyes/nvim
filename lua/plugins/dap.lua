@@ -10,6 +10,7 @@ return {
 		},
 		{
 			"rcarriga/nvim-dap-ui",
+			dependencies = "nvim-neotest/nvim-nio",
 			event = { "BufReadPre", "BufNewFile" },
 			opts = {
 				expand_lines = false,

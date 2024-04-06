@@ -4,7 +4,6 @@ return {
 	config = function()
 		require("lint").linters_by_ft = {
 			sh = { "shellcheck" },
-			zsh = { "shellcheck" },
 		}
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "TextChanged", "TextChangedI" }, {

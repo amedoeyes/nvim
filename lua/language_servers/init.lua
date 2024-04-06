@@ -12,5 +12,6 @@ return {
 	marksman = {},
 	pylsp = {},
 	tailwindcss = require("language_servers.tailwindcss"),
+	taplo = {},
 	tsserver = {},
 }

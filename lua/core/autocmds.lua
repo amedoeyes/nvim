@@ -55,10 +55,9 @@ autocmd("FileType", {
 })
 
 autocmd("FileType", {
-	group = augroup("wrap_spell", { clear = true }),
-	pattern = { "gitcommit", "markdown" },
+	group = augroup("spell", { clear = true }),
+	pattern = { "gitcommit", "markdown", "tex" },
 	callback = function()
-		vim.opt_local.wrap = true
 		vim.opt_local.spell = true
 	end,
 })

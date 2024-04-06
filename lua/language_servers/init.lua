@@ -10,7 +10,7 @@ return {
 	jsonls = require("language_servers.jsonls"),
 	lua_ls = require("language_servers.lua_ls"),
 	marksman = {},
-	pylsp = {},
+	pylsp = require("language_servers.pylsp"),
 	tailwindcss = require("language_servers.tailwindcss"),
 	taplo = {},
 	tsserver = {},

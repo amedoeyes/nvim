@@ -28,20 +28,14 @@ util.lsp_on_attach(function(_, buffer)
 	map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration", buffer = buffer })
 	map("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation", buffer = buffer })
 	map("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition", buffer = buffer })
-
-	--Options
-
-	map("n", "<leader>of", function()
-		vim.g.autoformat = not vim.g.autoformat
-		util.toggle_notify("Autoformat", vim.g.autoformat)
-	end, { desc = "Toggle autoformat", buffer = buffer })
-
-	map("n", "<leader>oi", function()
-		vim.g.inlayhint = not vim.g.inlayhint
-		vim.lsp.inlay_hint.enable(0, vim.g.inlayhint)
-		util.toggle_notify("Inlay hint", vim.g.inlayhint)
-	end, { desc = "Toggle inlay hint", buffer = buffer })
 end)
+
+--Options
+
+map("n", "<leader>of", function()
+	vim.g.autoformat = not vim.g.autoformat
+	util.toggle_notify("Autoformat", vim.g.autoformat)
+end, { desc = "Toggle autoformat" })
 
 --Movement
 

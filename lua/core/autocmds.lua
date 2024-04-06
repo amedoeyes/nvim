@@ -81,14 +81,3 @@ autocmd("VimEnter", {
 		vim.cmd("cd " .. util.get_root_dir())
 	end,
 })
-
-util.lsp_on_attach(function()
-	local lsp_augroup = augroup("lsp_on_attach", { clear = true })
-
-	autocmd("BufEnter", {
-		group = lsp_augroup,
-		callback = function()
-			vim.lsp.inlay_hint.enable(0, vim.g.inlayhint)
-		end,
-	})
-end)

@@ -1,70 +1,68 @@
-local opt = vim.opt
-local g = vim.g
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-g.mapleader = " "
-g.maplocalleader = " "
+vim.g.autoformat = true
 
-g.autoformat = true
-g.inlayhint = false
 vim.g.tex_flavor = "latex"
 vim.g.tex_conceal = "abdgm"
 
-opt.clipboard = "unnamedplus"
-opt.formatoptions = "jcroqlnt"
-opt.scrolloff = 4
-opt.sidescrolloff = 8
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
-opt.timeoutlen = 300
+vim.opt.clipboard = "unnamedplus"
+vim.opt.formatoptions = "jcroqlnt"
+vim.opt.scrolloff = 4
+vim.opt.sidescrolloff = 8
+vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+vim.opt.timeoutlen = 300
+vim.opt.conceallevel = 2
 
-opt.wrap = false
-opt.linebreak = true
+vim.opt.wrap = false
+vim.opt.linebreak = true
 
-opt.cursorline = true
-opt.mouse = "a"
-opt.guicursor:append("a:blinkon100-blinkoff100")
+vim.opt.cursorline = true
+vim.opt.mouse = "a"
+vim.opt.guicursor:append("a:blinkon100-blinkoff100")
 
-opt.number = true
-opt.relativenumber = true
-opt.signcolumn = "yes"
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.signcolumn = "yes"
 
-opt.shiftround = true
-opt.shiftwidth = 4
-opt.tabstop = 4
-opt.smartindent = true
-opt.list = true
+vim.opt.shiftround = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.smartindent = true
+vim.opt.list = true
 
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
-opt.foldlevel = 99
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99
 
-opt.laststatus = 0
-opt.showmode = false
-opt.shortmess:append({ I = true, c = true })
-opt.termguicolors = true
+vim.opt.laststatus = 0
+vim.opt.showmode = false
+vim.opt.shortmess:append({ I = true, c = true })
+vim.opt.termguicolors = true
 
-opt.fillchars:append({ eob = " " })
-opt.listchars:append({ trail = " ", tab = "  " })
+vim.opt.fillchars:append({ eob = " " })
+vim.opt.listchars:append({ trail = " ", tab = "  " })
 
-opt.wildmode = "longest:full,full"
-opt.completeopt = "menu,menuone,noinsert"
-opt.pumheight = 10
+vim.opt.wildmode = "longest:full,full"
+vim.opt.completeopt = "menu,menuone,noinsert"
+vim.opt.pumheight = 10
 
-opt.splitkeep = "screen"
-opt.splitbelow = true
-opt.splitright = true
-opt.winminwidth = 5
+vim.opt.splitkeep = "screen"
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.winminwidth = 5
 
-opt.autowrite = true
-opt.confirm = true
-opt.undofile = true
-opt.undolevels = 10000
-opt.swapfile = false
+vim.opt.autowrite = true
+vim.opt.confirm = true
+vim.opt.undofile = true
+vim.opt.undolevels = 10000
+vim.opt.swapfile = false
 
-opt.grepformat = "%f:%l:%c:%m"
-opt.grepprg = "rg --vimgrep"
-opt.ignorecase = true
-opt.smartcase = true
-opt.inccommand = "nosplit"
+vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = "rg --vimgrep"
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.inccommand = "nosplit"
 
-opt.spelllang = { "en" }
-opt.spelloptions = "camel"
+vim.opt.spelllang = { "en" }
+vim.opt.spelloptions = "camel"

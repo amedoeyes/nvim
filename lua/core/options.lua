@@ -6,6 +6,8 @@ g.maplocalleader = " "
 
 g.autoformat = true
 g.inlayhint = false
+vim.g.tex_flavor = "latex"
+vim.g.tex_conceal = "abdgm"
 
 opt.clipboard = "unnamedplus"
 opt.formatoptions = "jcroqlnt"

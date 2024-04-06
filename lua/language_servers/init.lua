@@ -14,4 +14,5 @@ return {
 	tailwindcss = require("language_servers.tailwindcss"),
 	taplo = {},
 	tsserver = {},
+	texlab = {},
 }

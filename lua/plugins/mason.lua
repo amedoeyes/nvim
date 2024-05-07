@@ -28,6 +28,7 @@ return {
 				"latexindent",
 				"lua-language-server",
 				"marksman",
+				"mesonlsp",
 				"prettierd",
 				"pylsp",
 				"shellcheck",

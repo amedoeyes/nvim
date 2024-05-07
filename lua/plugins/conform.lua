@@ -32,7 +32,7 @@ return {
 			end
 
 			return {
-				timeout_ms = 500,
+				timeout_ms = 1000,
 				lsp_fallback = true,
 			}
 		end,
@@ -42,7 +42,7 @@ return {
 			"<leader>cf",
 			function()
 				require("conform").format({
-					timeout_ms = 500,
+					timeout_ms = 1000,
 					lsp_fallback = true,
 				})
 			end,

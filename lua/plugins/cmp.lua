@@ -7,7 +7,12 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 		"onsails/lspkind.nvim",
 		"lukas-reineke/cmp-under-comparator",
-		{ "Exafunction/codeium.nvim", dependencies = "nvim-lua/plenary.nvim", opts = {} },
+		{
+			"zbirenbaum/copilot-cmp",
+			config = function()
+				require("copilot_cmp").setup()
+			end,
+		},
 	},
 	event = "InsertEnter",
 	opts = function()
@@ -37,10 +42,10 @@ return {
 				}),
 			}),
 			sources = cmp.config.sources({
-				{ name = "codeium" },
+				{ name = "path" },
+				{ name = "copilot" },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
-				{ name = "path" },
 				{ name = "buffer" },
 			}),
 			formatting = {

@@ -42,6 +42,7 @@ M.kinds = {
 	Unit = "",
 	Value = "󰎠",
 	Variable = "",
+	Copilot = "",
 }
 
 return M

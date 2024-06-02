@@ -1,83 +1,42 @@
-local util = require("core.util")
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
+local autocmd = function(event, group, opts)
+	opts = opts or {}
+	opts.group = vim.api.nvim_create_augroup(group, { clear = true })
+	return vim.api.nvim_create_autocmd(event, opts)
+end
+local utils = require("core.utils")
 
-autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-	group = augroup("checktime", { clear = true }),
+autocmd({ "FocusGained", "TermClose", "TermLeave" }, "checktime", {
 	command = "checktime",
 })
 
-autocmd("TextYankPost", {
-	group = augroup("highlight_yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+autocmd("TextYankPost", "highlight_yank", {
+	callback = function() vim.highlight.on_yank() end,
 })
 
-autocmd("VimResized", {
-	group = augroup("resize_splits", { clear = true }),
-	callback = function()
-		vim.cmd("tabdo wincmd =")
-	end,
+autocmd("VimResized", "resize_splits", {
+	callback = function() vim.cmd("tabdo wincmd =") end,
 })
 
-autocmd("BufReadPost", {
-	group = augroup("cursor_to_mark", { clear = true }),
-	callback = function(event)
-		local mark = vim.api.nvim_buf_get_mark(event.buf, '"')
-
-		pcall(vim.api.nvim_win_set_cursor, 0, mark)
-	end,
-})
-
-autocmd("FileType", {
-	group = augroup("close_with_q", { clear = true }),
+autocmd("FileType", "close_with_q", {
 	pattern = {
-		"PlenaryTestPopup",
+		"checkhealth",
 		"help",
 		"lspinfo",
 		"man",
 		"notify",
 		"qf",
-		"spectre_panel",
-		"startuptime",
-		"tsplayground",
-		"neotest-output",
-		"checkhealth",
-		"neotest-summary",
-		"neotest-output-panel",
-		"Clangd*",
 	},
-	callback = function(event)
-		vim.bo[event.buf].buflisted = false
-		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+	callback = function(e)
+		vim.bo[e.buf].buflisted = false
+		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = e.buf, silent = true })
 	end,
 })
 
-autocmd("FileType", {
-	group = augroup("spell", { clear = true }),
-	pattern = { "gitcommit", "markdown", "tex" },
-	callback = function()
-		vim.opt_local.spell = true
-	end,
-})
-
-autocmd("BufWritePre", {
-	group = augroup("create_dir", { clear = true }),
-	callback = function(event)
-		if event.match:match("^%w%w+://") then
-			return
-		end
-
-		local file = vim.loop.fs_realpath(event.match) or event.match
-
-		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-	end,
-})
-
-autocmd("VimEnter", {
-	group = augroup("cd_root", { clear = true }),
-	callback = function()
-		vim.cmd("cd " .. util.get_root_dir())
-	end,
-})
+utils.lsp.on_supports_method("textDocument/codeLens", function(_, buffer)
+	autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, "lsp_codelens", {
+		buffer = buffer,
+		callback = function()
+			if vim.g.codelens then vim.lsp.codelens.refresh({ bufnr = buffer }) end
+		end,
+	})
+end)

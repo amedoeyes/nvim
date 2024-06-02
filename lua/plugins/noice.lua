@@ -1,22 +1,19 @@
 return {
 	"folke/noice.nvim",
-	event = "VimEnter",
 	dependencies = {
-		"MunifTanjim/nui.nvim",
+		{ "MunifTanjim/nui.nvim", lazy = true },
 		{
 			"rcarriga/nvim-notify",
 			opts = {
-				render = "minimal",
-				timeout = 0,
-				max_height = function()
-					return math.floor(vim.o.lines * 0.75)
-				end,
-				max_width = function()
-					return math.floor(vim.o.columns * 0.75)
-				end,
+				stages = "slide",
+				render = "wrapped-compact",
+				timeout = 3000,
+				max_height = function() return math.floor(vim.o.lines * 0.75) end,
+				max_width = function() return math.floor(vim.o.columns * 0.75) end,
 			},
 		},
 	},
+	event = "VeryLazy",
 	opts = {
 		lsp = {
 			override = {
@@ -24,12 +21,8 @@ return {
 				["vim.lsp.util.stylize_markdown"] = true,
 				["cmp.entry.get_documentation"] = true,
 			},
-			progress = {
-				enabled = false,
-			},
-			hover = {
-				silent = true,
-			},
+			progress = { enabled = false },
+			hover = { silent = true },
 		},
 		presets = {
 			bottom_search = true,

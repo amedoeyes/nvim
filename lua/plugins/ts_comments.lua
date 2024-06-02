@@ -1,6 +1,5 @@
 return {
-	"echasnovski/mini.pairs",
-	version = false,
+	"folke/ts-comments.nvim",
 	event = { "BufReadPre", "BufNewFile" },
 	opts = {},
 }

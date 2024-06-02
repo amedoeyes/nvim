@@ -1,25 +1,28 @@
 return {
 	"stevearc/conform.nvim",
-	event = { "BufReadPre", "BufNewFile" },
+	cmd = "ConformInfo",
+	event = "BufWritePre",
+	init = function() vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()" end,
 	opts = {
 		formatters_by_ft = {
 			asm = { "asmfmt" },
 			c = { "clang_format" },
 			cmake = { "gersemi" },
 			cpp = { "clang_format" },
-			css = { "prettierd" },
-			html = { "prettierd" },
-			javascript = { "prettierd" },
-			javascriptreact = { "prettierd" },
-			json = { "prettierd" },
-			jsonc = { "prettierd" },
+			css = { "prettier" },
+			html = { "prettier" },
+			javascript = { "prettier" },
+			javascriptreact = { "prettier" },
+			json = { "prettier" },
+			jsonc = { "prettier" },
 			lua = { "stylua" },
-			markdown = { "prettierd" },
+			markdown = { "prettier" },
 			python = { "black" },
+			scss = { "prettier" },
 			sh = { "shfmt" },
 			tex = { "latexindent" },
-			typescript = { "prettierd" },
-			typescriptreact = { "prettierd" },
+			typescript = { "prettier" },
+			typescriptreact = { "prettier" },
 			zsh = { "shfmt" },
 			["_"] = { "trim_whitespace" },
 		},
@@ -27,26 +30,11 @@ return {
 			latexindent = { prepend_args = { "-g", "/dev/null" } },
 		},
 		format_on_save = function()
-			if not vim.g.autoformat then
-				return
-			end
-
+			if not vim.g.autoformat then return end
 			return {
 				timeout_ms = 1000,
 				lsp_fallback = true,
 			}
 		end,
-	},
-	keys = {
-		{
-			"<leader>cf",
-			function()
-				require("conform").format({
-					timeout_ms = 1000,
-					lsp_fallback = true,
-				})
-			end,
-			desc = "Format",
-		},
 	},
 }

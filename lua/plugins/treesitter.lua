@@ -1,6 +1,11 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
+	event = { "BufReadPre", "BufNewFile" },
+	init = function()
+		vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+		vim.opt.foldmethod = "expr"
+	end,
 	opts = {
 		ensure_installed = {
 			"arduino",
@@ -10,8 +15,10 @@ return {
 			"comment",
 			"cpp",
 			"css",
+			"diff",
 			"glsl",
 			"html",
+			"hyprlang",
 			"javascript",
 			"json",
 			"json5",
@@ -31,6 +38,7 @@ return {
 			"vim",
 			"vimdoc",
 			"yaml",
+			"yuck",
 		},
 		highlight = { enable = true },
 		indent = { enable = true },
@@ -44,7 +52,5 @@ return {
 			},
 		},
 	},
-	config = function(_, opts)
-		require("nvim-treesitter.configs").setup(opts)
-	end,
+	config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
 }

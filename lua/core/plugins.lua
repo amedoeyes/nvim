@@ -6,13 +6,13 @@ if not vim.loop.fs_stat(lazypath) then
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
 		"--branch=stable",
+		"--depth=1",
 		lazypath,
 	})
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins", {
-	ui = {
-		border = "rounded",
-	},
+require("lazy").setup({
+	spec = "plugins",
+	ui = { border = "rounded" },
 })

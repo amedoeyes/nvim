@@ -13,4 +13,7 @@ return {
 			return vim.ui.input(...)
 		end
 	end,
+	opts = {
+		input = { insert_only = false },
+	},
 }

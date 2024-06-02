@@ -1,7 +1,6 @@
 return {
-	"amedoeyes/eyes.nvim",
+	"folke/trouble.nvim",
 	dependencies = "nvim-tree/nvim-web-devicons",
-	lazy = false,
-	priority = 1000,
+	cmd = "Trouble",
 	opts = {},
 }

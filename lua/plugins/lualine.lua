@@ -1,17 +1,13 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = "nvim-tree/nvim-web-devicons",
-	event = "VimEnter",
+	lazy = false,
 	opts = function()
-		local icons = require("core.icons")
-
+		local icons = vim.diagnostic.config().signs.text
 		return {
 			options = {
 				theme = "eyes",
 				globalstatus = true,
-				disabled_filetypes = {
-					statusline = { "dashboard" },
-				},
 				section_separators = "",
 				component_separators = "",
 			},
@@ -22,43 +18,43 @@ return {
 					{
 						"diagnostics",
 						symbols = {
-							error = icons.diagnostics.Error,
-							warn = icons.diagnostics.Warn,
-							info = icons.diagnostics.Info,
-							hint = icons.diagnostics.Hint,
+							error = icons and icons[vim.diagnostic.severity.ERROR],
+							warn = icons and icons[vim.diagnostic.severity.WARN],
+							info = icons and icons[vim.diagnostic.severity.INFO],
+							hint = icons and icons[vim.diagnostic.severity.HINT],
 						},
-						colored = false,
 					},
 					{
 						"filetype",
 						icon_only = true,
 						padding = { left = 1, right = 0 },
-						colored = false,
 					},
 					{
 						"filename",
 						file_status = false,
+						padding = { left = 0 },
 					},
 				},
 				lualine_x = {
 					{
-						function()
-							return require("noice").api.status.mode.get()
-						end,
-						cond = function()
-							return require("noice").api.status.mode.has()
-						end,
-						color = false,
+						---@diagnostic disable-next-line: undefined-field
+						require("noice").api.status.mode.get,
+						---@diagnostic disable-next-line: undefined-field
+						cond = require("noice").api.status.mode.has,
 					},
 				},
-				lualine_y = {
-					{ "progress" },
-				},
-				lualine_z = {
-					{ "location" },
-				},
+				lualine_y = { { "progress" } },
+				lualine_z = { { "location" } },
 			},
-			extensions = { "lazy", "neo-tree", "toggleterm" },
+			extensions = {
+				"lazy",
+				"man",
+				"mason",
+				"neo-tree",
+				"nvim-dap-ui",
+				"toggleterm",
+				"trouble",
+			},
 		}
 	end,
 }

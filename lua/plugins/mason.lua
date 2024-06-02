@@ -1,45 +1,71 @@
 return {
-	{
-		"williamboman/mason.nvim",
-		opts = {
-			ui = {
-				border = "rounded",
-			},
+	"williamboman/mason.nvim",
+	build = ":MasonUpdate",
+	cmd = {
+		"Mason",
+		"MasonInstall",
+		"MasonUninstall",
+		"MasonUninstallAll",
+		"MasonLog",
+		"MasonUpdate",
+		"MasonUpdateAll",
+	},
+	lazy = true,
+	opts = {
+		ui = { border = "rounded" },
+		ensure_installed = {
+			"arduino-language-server",
+			"asm-lsp",
+			"asmfmt",
+			"bash-language-server",
+			"black",
+			"clangd",
+			"codelldb",
+			"css-lsp",
+			"emmet-language-server",
+			"eslint-lsp",
+			"glsl_analyzer",
+			"json-lsp",
+			"latexindent",
+			"lua-language-server",
+			"marksman",
+			"mesonlsp",
+			"prettierd",
+			"python-lsp-server",
+			"shellcheck",
+			"shfmt",
+			"stylua",
+			"taplo",
+			"texlab",
+			"typescript-language-server",
 		},
 	},
-	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		opts = {
-			ensure_installed = {
-				"arduino_language_server",
-				"asm-lsp",
-				"asmfmt",
-				"bash-language-server",
-				"black",
-				"clangd",
-				"cmake-language-server",
-				"codelldb",
-				"css-lsp",
-				"emmet-language-server",
-				"eslint-lsp",
-				"gersemi",
-				"glsl_analyzer",
-				"json-lsp",
-				"latexindent",
-				"lua-language-server",
-				"marksman",
-				"mesonlsp",
-				"prettierd",
-				"pylsp",
-				"shellcheck",
-				"shfmt",
-				"stylua",
-				"tailwindcss-language-server",
-				"taplo",
-				"texlab",
-				"typescript-language-server",
-			},
-			auto_update = false,
-		},
-	},
+	config = function(_, opts)
+		require("mason").setup(opts)
+		local registry = require("mason-registry")
+		local notify = require("mason-core.notify")
+		registry.refresh(function()
+			for _, tool in ipairs(opts.ensure_installed) do
+				local pkg = registry.get_package(tool)
+				if not pkg:is_installed() then
+					pkg:install()
+					notify("Installing " .. tool)
+				end
+			end
+		end)
+		local command = vim.api.nvim_create_user_command
+		command("MasonUpdateAll", function()
+			local up_to_date = true
+			for _, tool in ipairs(opts.ensure_installed) do
+				local pkg = registry.get_package(tool)
+				pkg:check_new_version(function(success, result_or_err)
+					if not success then return end
+					up_to_date = false
+					pkg:install()
+					notify("Updating " .. result_or_err.name)
+				end)
+			end
+			if up_to_date then notify("All tools are up-to-date") end
+		end, {})
+	end,
 }

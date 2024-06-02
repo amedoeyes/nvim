@@ -1,69 +1,57 @@
-local util = require("core.util")
 local map = vim.keymap.set
+local utils = require("core.utils")
 
---Code
-
-map("v", "<", "<gv", { desc = "Indent left" })
-map("v", ">", ">gv", { desc = "Indent right" })
-
---LSP
-
-util.lsp_on_attach(function(_, buffer)
-	--Code
-
-	map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename", buffer = buffer })
-	map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Actions", buffer = buffer })
-
-	--Diagnostics
-
-	map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Diagnostic", buffer = buffer })
-
-	--Documentation
-
-	map("n", "K", vim.lsp.buf.hover, { desc = "Documentation", buffer = buffer })
-
-	--Go to
-
-	map("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition", buffer = buffer })
-	map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration", buffer = buffer })
-	map("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation", buffer = buffer })
-	map("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition", buffer = buffer })
+map("n", "<leader>of", function() utils.toggle_global("autoformat") end, { desc = "Toggle autoformat" })
+map("n", "<leader>os", function() utils.toggle_option("spell") end, { desc = "Toggle spell" })
+map(
+	"n",
+	"<leader>od",
+	function() vim.diagnostic.enable(utils.toggle_global("diagnostics")) end,
+	{ desc = "Toggle diagnostics" }
+)
+map("n", "<leader>op", function() utils.toggle_global("minipairs_disable") end, { desc = "Toggle minipairs_disable" })
+utils.lsp.on_supports_method("textDocument/inlayHint", function(_, _)
+	map(
+		"n",
+		"<leader>oi",
+		function() vim.lsp.inlay_hint.enable(utils.toggle_global("inlay_hints")) end,
+		{ desc = "Toggle inlay_hints" }
+	)
+end)
+utils.lsp.on_supports_method("textDocument/codeLens", function(_, _)
+	map("n", "<leader>oc", function()
+		if utils.toggle_global("codelens") then
+			vim.lsp.codelens.refresh()
+		else
+			vim.lsp.codelens.clear()
+		end
+	end, { desc = "Toggle codelens" })
 end)
 
---Options
-
-map("n", "<leader>of", function()
-	vim.g.autoformat = not vim.g.autoformat
-	util.toggle_notify("Autoformat", vim.g.autoformat)
-end, { desc = "Toggle autoformat" })
-
---Movement
-
-map("n", "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Next line", expr = true, silent = true })
-map("n", "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Previous line", expr = true, silent = true })
-
---Options
-
-map("n", "<leader>os", function()
-	vim.o.spell = not vim.o.spell
-	util.toggle_notify("Spell", vim.o.spell)
-end, { desc = "Toggle spell" })
-
---Search
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
-map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Previous search result" })
+map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
+map({ "x", "o" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev search result" })
+map({ "x", "o" }, "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 
---Windows
+map({ "n", "t" }, "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
+map({ "n", "t" }, "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
+map({ "n", "t" }, "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
+map({ "n", "t" }, "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
 
-map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter normal mode" })
-map({ "n", "i", "v", "t" }, "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
-map({ "n", "i", "v", "t" }, "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
-map({ "n", "i", "v", "t" }, "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
-map({ "n", "i", "v", "t" }, "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
+map({ "n", "t" }, "<C-left>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+map({ "n", "t" }, "<C-down>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map({ "n", "t" }, "<C-up>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map({ "n", "t" }, "<C-right>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 
-map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to previous buffer" })
+
+utils.lsp.on_attach(function(_, buffer)
+	map("n", "grd", vim.lsp.buf.definition, { desc = "vim.lsp.buf.definition", buffer = buffer })
+	map("n", "grD", vim.lsp.buf.declaration, { desc = "vim.lsp.buf.declaration", buffer = buffer })
+	map("n", "gri", vim.lsp.buf.implementation, { desc = "vim.lsp.buf.implementation", buffer = buffer })
+	map("n", "grt", vim.lsp.buf.type_definition, { desc = "vim.lsp.buf.type_definition", buffer = buffer })
+end)

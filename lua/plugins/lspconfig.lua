@@ -2,7 +2,6 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
-		{ "folke/neodev.nvim", opts = {} },
 		{ "b0o/SchemaStore.nvim", lazy = true },
 		{
 			"williamboman/mason-lspconfig.nvim",

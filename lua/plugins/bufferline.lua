@@ -4,6 +4,12 @@ return {
 	lazy = false,
 	opts = function()
 		local groups = require("bufferline.groups")
+		local sort_by = function(buffer_a, buffer_b) return buffer_a.name < buffer_b.name end
+		vim.api.nvim_create_user_command(
+			"BufferLineSortByName",
+			function() require("bufferline").sort_by(sort_by) end,
+			{}
+		)
 		return {
 			options = {
 				diagnostics = "nvim_lsp",
@@ -30,6 +36,7 @@ return {
 						groups.builtin.ungrouped,
 					},
 				},
+				sort_by = sort_by,
 			},
 			highlights = require("eyes.theme").bufferline,
 		}

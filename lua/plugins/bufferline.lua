@@ -22,9 +22,10 @@ return {
 					return vim.trim(error .. " " .. warning .. " " .. info)
 				end,
 				offsets = {
-					{ filetype = "neo-tree", text = "File Tree", highlight = "Title" },
-					{ filetype = "undotree", text = "Undotree", highlight = "Title" },
 					{ filetype = "copilot-chat", text = "Copilot", highlight = "Title" },
+					{ filetype = "neo-tree", text = "File Tree", highlight = "Title" },
+					{ filetype = "toggleterm", text = "Terminal", highlight = "Title" },
+					{ filetype = "undotree", text = "Undotree", highlight = "Title" },
 				},
 				tab_size = 10,
 				show_buffer_close_icons = false,

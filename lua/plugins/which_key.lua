@@ -2,26 +2,25 @@ return {
 	"folke/which-key.nvim",
 	event = "VeryLazy",
 	opts = {
-		show_help = false,
-		defaults = {
-			mode = { "n", "v" },
-			["]"] = { name = "+next" },
-			["["] = { name = "+prev" },
-			["gr"] = { name = "+lsp" },
-			["gs"] = { name = "+surround" },
-			["<leader>b"] = { name = "+buffers" },
-			["<leader>d"] = { name = "+debugger" },
-			["<leader>f"] = { name = "+files" },
-			["<leader>g"] = { name = "+git" },
-			["<leader>gh"] = { name = "+hunks" },
-			["<leader>o"] = { name = "+options" },
-			["<leader>t"] = { name = "+terminal" },
+		preset = "modern",
+		triggers = {
+			{ "<auto>", mode = { "n", "v" } },
 		},
-		window = { border = "rounded" },
+		spec = {
+			{
+				mode = { "n", "v" },
+				{ "]", group = "next" },
+				{ "[", group = "prev" },
+				{ "gr", group = "lsp" },
+				{ "gs", group = "surround" },
+				{ "<leader>b", group = "buffers" },
+				{ "<leader>d", group = "debugger" },
+				{ "<leader>f", group = "files" },
+				{ "<leader>g", group = "git" },
+				{ "<leader>gh", group = "hunks" },
+				{ "<leader>o", group = "options" },
+				{ "<leader>t", group = "terminal" },
+			},
+		},
 	},
-	config = function(_, opts)
-		local wk = require("which-key")
-		wk.setup(opts)
-		wk.register(opts.defaults)
-	end,
 }

@@ -14,6 +14,7 @@ return {
 	opts = {
 		ui = { border = "rounded" },
 		ensure_installed = {
+			"haskell-language-server",
 			"arduino-language-server",
 			"asm-lsp",
 			"asmfmt",
@@ -25,12 +26,11 @@ return {
 			"emmet-language-server",
 			"eslint-lsp",
 			"glsl_analyzer",
+			"hyprls",
 			"json-lsp",
-			"latexindent",
 			"lua-language-server",
 			"marksman",
-			"mesonlsp",
-			"prettierd",
+			"prettier",
 			"python-lsp-server",
 			"shellcheck",
 			"shfmt",

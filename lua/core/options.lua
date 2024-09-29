@@ -22,7 +22,7 @@ opt.pumheight = 10
 opt.relativenumber = true
 opt.scrolloff = 4
 opt.shiftround = true
-opt.shiftwidth = 4
+opt.shiftwidth = 2
 opt.shortmess:append({ C = true, I = true, W = true, c = true })
 opt.showmode = false
 opt.sidescrolloff = 8
@@ -35,7 +35,7 @@ opt.splitbelow = true
 opt.splitkeep = "screen"
 opt.splitright = true
 opt.swapfile = false
-opt.tabstop = 4
+opt.tabstop = 2
 opt.timeoutlen = 300
 opt.undofile = true
 opt.undolevels = 10000

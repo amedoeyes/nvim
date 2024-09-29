@@ -82,6 +82,10 @@ return {
 				completion = cmp.config.window.bordered({ winhighlight = "FloatBorder:FloatBorder" }),
 				documentation = cmp.config.window.bordered({ winhighlight = "FloatBorder:FloatBorder" }),
 			},
+			performance = {
+				debounce = 0,
+				throttle = 0,
+			},
 		}
 	end,
 	keys = {

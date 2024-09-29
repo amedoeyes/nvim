@@ -47,11 +47,19 @@ map({ "n", "t" }, "<C-down>", "<cmd>resize +2<cr>", { desc = "Increase window he
 map({ "n", "t" }, "<C-up>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 map({ "n", "t" }, "<C-right>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 
+map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to previous buffer" })
 
-utils.lsp.on_attach(function(_, buffer)
-	map("n", "grd", vim.lsp.buf.definition, { desc = "vim.lsp.buf.definition", buffer = buffer })
-	map("n", "grD", vim.lsp.buf.declaration, { desc = "vim.lsp.buf.declaration", buffer = buffer })
-	map("n", "gri", vim.lsp.buf.implementation, { desc = "vim.lsp.buf.implementation", buffer = buffer })
-	map("n", "grt", vim.lsp.buf.type_definition, { desc = "vim.lsp.buf.type_definition", buffer = buffer })
-end)
+map("n", "grD", vim.lsp.buf.declaration, { desc = "Declaration" })
+map("n", "gra", vim.lsp.buf.code_action, { desc = "Code actions" })
+map("n", "grd", vim.lsp.buf.definition, { desc = "Definition" })
+map("n", "grf", vim.lsp.buf.format, { desc = "Format" })
+map("n", "gri", vim.lsp.buf.implementation, { desc = "Implementation" })
+map("n", "grn", vim.lsp.buf.rename, { desc = "Rename" })
+map("n", "grr", vim.lsp.buf.references, { desc = "References" })
+map("n", "grt", vim.lsp.buf.type_definition, { desc = "Type definition" })
+
+map("n", "grlr", vim.lsp.codelens.run, { desc = "Codelens run" })
+map("n", "grlc", vim.lsp.codelens.clear, { desc = "Codelens clear" })
+map("n", "grlf", vim.lsp.codelens.refresh, { desc = "Codelens refresh" })

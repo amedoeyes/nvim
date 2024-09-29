@@ -8,6 +8,7 @@ return {
 	end,
 	opts = {
 		ensure_installed = {
+			"haskell",
 			"arduino",
 			"bash",
 			"c",

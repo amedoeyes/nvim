@@ -3,19 +3,28 @@ return {
 	cmd = {
 		"PersistenceStart",
 		"PersistenceStop",
+		"PersistenceSave",
 		"PersistenceRestore",
 		"PersistenceRestoreLast",
-		"PersistenceSave",
 	},
-	opts = { options = vim.opt.sessionoptions:get() },
-	config = function(_, opts)
+	event = "BufReadPre",
+	config = function()
 		local persistence = require("persistence")
-		persistence.setup(opts)
-		local command = vim.api.nvim_create_user_command
-		command("PersistenceStart", function() persistence.start() end, {})
-		command("PersistenceStop", function() persistence.stop() end, {})
-		command("PersistenceRestore", function() persistence.load() end, {})
-		command("PersistenceRestoreLast", function() persistence.load({ last = true }) end, {})
-		command("PersistenceSave", function() persistence.save() end, {})
+		persistence.setup()
+		vim.api.nvim_create_user_command("PersistenceStart", function()
+			persistence.start()
+		end, {})
+		vim.api.nvim_create_user_command("PersistenceStop", function()
+			persistence.stop()
+		end, {})
+		vim.api.nvim_create_user_command("PersistenceRestore", function()
+			persistence.load()
+		end, {})
+		vim.api.nvim_create_user_command("PersistenceRestoreLast", function()
+			persistence.load({ last = true })
+		end, {})
+		vim.api.nvim_create_user_command("PersistenceSave", function()
+			persistence.save()
+		end, {})
 	end,
 }

@@ -8,8 +8,6 @@ return {
 	end,
 	opts = {
 		ensure_installed = {
-			"haskell",
-			"arduino",
 			"bash",
 			"c",
 			"cmake",
@@ -18,12 +16,17 @@ return {
 			"css",
 			"diff",
 			"glsl",
+			"go",
+			"gomod",
+			"gosum",
+			"gowork",
+			"haskell",
 			"html",
-			"hyprlang",
 			"javascript",
 			"json",
 			"json5",
 			"jsonc",
+			"latex",
 			"lua",
 			"luadoc",
 			"luap",
@@ -33,6 +36,7 @@ return {
 			"python",
 			"query",
 			"regex",
+			"sql",
 			"toml",
 			"tsx",
 			"typescript",
@@ -53,5 +57,7 @@ return {
 			},
 		},
 	},
-	config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
+	config = function(_, opts)
+		require("nvim-treesitter.configs").setup(opts)
+	end,
 }

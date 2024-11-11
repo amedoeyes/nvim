@@ -1,0 +1,52 @@
+return {
+	"saghen/blink.cmp",
+	dependencies = "rafamadriz/friendly-snippets",
+	build = "cargo build --release",
+	lazy = false,
+	opts = {
+		sources = {
+			completion = {
+				enabled_providers = { "lsp", "path", "snippets", "buffer", "lazydev" },
+			},
+			providers = {
+				lsp = { fallback_for = { "lazydev" } },
+				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+			},
+		},
+		accept = {
+			auto_brackets = { enabled = true },
+		},
+		windows = {
+			autocomplete = { border = "single" },
+			documentation = { border = "single" },
+			signature_help = { border = "single" },
+		},
+		kind_icons = {
+			Class = "",
+			Color = "",
+			Constant = "",
+			Constructor = "",
+			Enum = "",
+			EnumMember = "",
+			Event = "",
+			Field = "",
+			File = "",
+			Folder = "",
+			Function = "",
+			Interface = "",
+			Keyword = "",
+			Method = "",
+			Module = "",
+			Operator = "",
+			Property = "",
+			Reference = "",
+			Snippet = "",
+			Struct = "",
+			Text = "",
+			TypeParameter = "",
+			Unit = "",
+			Value = "󰎠",
+			Variable = "",
+		},
+	},
+}

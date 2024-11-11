@@ -1,6 +1,4 @@
-local filetype = vim.filetype
-
-filetype.add({
+vim.filetype.add({
 	extension = {
 		vert = "glsl",
 		geom = "glsl",
@@ -10,6 +8,6 @@ filetype.add({
 		comp = "glsl",
 	},
 	pattern = {
-		[".*/hypr/.*%.conf"] = "hyprlang",
+		[".*/sway/.*%.conf"] = "swayconfig",
 	},
 })

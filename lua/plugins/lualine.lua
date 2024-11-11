@@ -1,6 +1,9 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = "nvim-tree/nvim-web-devicons",
+	dependencies = {
+		{ "nvim-tree/nvim-web-devicons", lazy = true },
+		{ "folke/noice.nvim", lazy = true },
+	},
 	lazy = false,
 	opts = function()
 		local icons = vim.diagnostic.config().signs.text
@@ -10,6 +13,18 @@ return {
 				globalstatus = true,
 				section_separators = "",
 				component_separators = "",
+				always_show_tabline = false,
+			},
+			tabline = {
+				lualine_a = {
+					{
+						"tabs",
+						mode = 1,
+						max_length = vim.o.columns,
+						show_modified_status = false,
+						tabs_color = { active = "TabLineSel", inactive = "TabLine" },
+					},
+				},
 			},
 			sections = {
 				lualine_a = { "mode" },
@@ -28,11 +43,22 @@ return {
 						"filetype",
 						icon_only = true,
 						padding = { left = 1, right = 0 },
+						cond = function()
+							return vim.api.nvim_buf_get_name(0) ~= ""
+						end,
 					},
 					{
 						"filename",
-						file_status = false,
 						padding = { left = 0 },
+						symbols = {
+							modified = "●",
+							readonly = "",
+							unnamed = "",
+							newfile = "󰎔",
+						},
+						cond = function()
+							return vim.api.nvim_buf_get_name(0) ~= ""
+						end,
 					},
 				},
 				lualine_x = {
@@ -43,17 +69,18 @@ return {
 						cond = require("noice").api.status.mode.has,
 					},
 				},
-				lualine_y = { { "progress" } },
-				lualine_z = { { "location" } },
+				lualine_y = {},
+				lualine_z = {
+					{ "progress", separator = " ", padding = { left = 1, right = 0 } },
+					{ "location", padding = { left = 0, right = 1 } },
+				},
 			},
 			extensions = {
 				"lazy",
 				"man",
 				"mason",
-				"neo-tree",
 				"nvim-dap-ui",
-				"toggleterm",
-				"trouble",
+				"oil",
 			},
 		}
 	end,

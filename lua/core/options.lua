@@ -1,5 +1,6 @@
 vim.opt.autowrite = true
 vim.opt.clipboard = "unnamedplus"
+vim.opt.cmdheight = 0
 vim.opt.completeopt = "menu,menuone,noinsert"
 vim.opt.conceallevel = 2
 vim.opt.confirm = true

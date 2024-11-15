@@ -13,10 +13,7 @@ return {
 		"ZkTags",
 	},
 	ft = { "markdown" },
-	opts = {
-		picker = "telescope",
-		lsp = nil,
-	},
+	opts = { picker = "telescope" },
 	config = function(_, opts)
 		require("zk").setup(opts)
 	end,

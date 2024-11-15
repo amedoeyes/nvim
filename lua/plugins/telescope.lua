@@ -4,7 +4,7 @@ return {
 		{ "nvim-lua/plenary.nvim", lazy = true },
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
-			build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+			build = "make",
 			lazy = true,
 		},
 	},
@@ -36,6 +36,6 @@ return {
 		{ "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Find recent file" },
 		{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find file" },
 		{ "<leader>fs", "<cmd>Telescope live_grep<cr>", desc = "Search files" },
-		{ "<F1>", "<cmd>Telescope help_tags<cr>", desc = "Find help", mode = { "n", "i" } },
+		{ "<F1>", "<cmd>Telescope<cr>", desc = "Find help", mode = { "n", "i" } },
 	},
 }

@@ -97,7 +97,9 @@ vim.api.nvim_create_autocmd({ "VimEnter", "FocusGained" }, {
 	callback = function()
 		if vim.fs.root(0, ".git") then
 			local cmd = vim.system({ "git", "branch", "--show-current" }):wait()
-			vim.g.git_branch = vim.trim(cmd.stdout)
+			if cmd.code == 0 then
+				vim.g.git_branch = vim.trim(cmd.stdout)
+			end
 		end
 	end,
 })

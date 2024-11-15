@@ -6,7 +6,6 @@ return {
 	},
 	ft = { "markdown" },
 	opts = {
-		render_modes = true,
 		heading = {
 			icons = {
 				"█ ",

@@ -2,7 +2,6 @@ return {
 	"rebelot/heirline.nvim",
 	lazy = false,
 	opts = function()
-		local conditions = require("heirline.conditions")
 		local utils = require("heirline.utils")
 
 		local padding = function(size)
@@ -80,7 +79,9 @@ return {
 		}
 
 		local diagnostics = {
-			condition = conditions.has_diagnostics,
+			condition = function()
+				return #vim.diagnostic.get(0) > 0 and vim.diagnostic.is_enabled()
+			end,
 			static = (function()
 				local icons = vim.diagnostic.config().signs.text
 				return {

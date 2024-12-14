@@ -1,14 +1,18 @@
 vim.opt.autowrite = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.cmdheight = 0
-vim.opt.completeopt = "menu,menuone,noinsert"
 vim.opt.conceallevel = 2
+vim.opt.concealcursor = "nc"
+vim.opt.completeopt = "menu,menuone,noinsert"
 vim.opt.confirm = true
 vim.opt.cursorline = true
 vim.opt.exrc = true
 vim.opt.fillchars =
 	{ diff = "╱", eob = " ", fold = " ", foldopen = "", foldclose = "", foldsep = " " }
 vim.opt.foldlevel = 99
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+vim.opt.foldtext = "v:lua.vim.lsp.foldtext()"
 vim.opt.formatoptions = "jcroqlnt"
 vim.opt.grepformat = "%f:%l:%c:%m"
 vim.opt.grepprg = "rg --vimgrep"

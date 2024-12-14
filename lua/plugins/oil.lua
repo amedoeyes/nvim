@@ -1,6 +1,5 @@
 return {
 	"stevearc/oil.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	lazy = false,
 	opts = {
 		columns = {
@@ -11,17 +10,12 @@ return {
 		},
 		delete_to_trash = true,
 		keymaps = {
-			["<C-v>"] = {
-				"actions.select",
-				opts = { vertical = true },
-				desc = "Open the entry in a vertical split",
-			},
+			["<C-h>"] = false,
 			["<C-s>"] = {
 				"actions.select",
 				opts = { horizontal = true },
 				desc = "Open the entry in a horizontal split",
 			},
-			["<C-h>"] = false,
 			["gd"] = function()
 				vim.g.oil_columns_details = not vim.g.oil_columns_details
 				if vim.g.oil_columns_details then
@@ -44,5 +38,14 @@ return {
 		progress = { border = "single" },
 		ssh = { border = "single" },
 		keymaps_help = { border = "single" },
+	},
+	keys = {
+		{
+			"<leader>fe",
+			function()
+				vim.cmd("Oil")
+			end,
+			desc = "File explorer",
+		},
 	},
 }

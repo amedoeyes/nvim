@@ -3,15 +3,13 @@ return {
 	event = "VeryLazy",
 	opts = {
 		preset = "modern",
-		triggers = {
-			{ "<auto>", mode = { "n", "v" } },
-		},
 		spec = {
 			{
 				mode = { "n", "v" },
 				{ "]", group = "next" },
 				{ "[", group = "prev" },
 				{ "gr", group = "lsp" },
+				{ "go", group = "operations" },
 				{ "gs", group = "surround" },
 				{ "<leader>T", group = "toggle" },
 				{ "<leader>b", group = "buffers" },
@@ -22,8 +20,6 @@ return {
 				{ "<leader>t", group = "tests" },
 			},
 		},
-		win = {
-			border = "single",
-		},
+		win = { border = "single" },
 	},
 }

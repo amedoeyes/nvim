@@ -19,4 +19,7 @@ require("lazy").setup({
 		path = "~/projects/programming/",
 		patterns = { "amedoeyes" },
 	},
+	change_detection = {
+		notify = false,
+	},
 })

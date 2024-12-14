@@ -23,18 +23,3 @@ vim.api.nvim_create_user_command("ReloadConfig", function()
 	dofile(vim.env.MYVIMRC)
 	vim.notify("Config reloaded")
 end, {})
-
-vim.api.nvim_create_user_command("ZenMode", function()
-	local zenmode = _G.zenmode
-	zenmode.enabled = not zenmode.enabled
-	if zenmode.enabled then
-		for opt, value in pairs(zenmode.opts) do
-			zenmode._opts[opt] = vim.opt[opt]
-			vim.opt[opt] = value
-		end
-	else
-		for opt, value in pairs(zenmode._opts) do
-			vim.opt[opt] = value
-		end
-	end
-end, {})

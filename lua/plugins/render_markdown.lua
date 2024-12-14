@@ -2,10 +2,28 @@ return {
 	"MeanderingProgrammer/render-markdown.nvim",
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter", lazy = true },
-		{ "nvim-tree/nvim-web-devicons", lazy = true },
 	},
 	ft = { "markdown" },
 	opts = {
+		render_modes = true,
+		anti_conceal = {
+			ignore = {
+				bullet = { "n" },
+				callout = { "n" },
+				check_icon = { "n" },
+				check_scope = { "n" },
+				code_background = true,
+				code_border = { "n" },
+				code_language = { "n" },
+				dash = { "n" },
+				head_background = true,
+				head_border = { "n" },
+				head_icon = { "n" },
+				link = { "n" },
+				quote = { "n" },
+				table_border = { "n" },
+			},
+		},
 		heading = {
 			icons = {
 				"█ ",
@@ -15,6 +33,9 @@ return {
 				"█████ ",
 				"██████ ",
 			},
+			border = true,
+			border_virtual = true,
+			border_prefix = true,
 		},
 		code = {
 			style = "full",
@@ -25,20 +46,28 @@ return {
 			right_pad = 2,
 			min_width = 80,
 			border = "thick",
+			highlight_language = "Comment",
 		},
 		quote = { repeat_linebreak = true },
+		latex = { enabled = false },
 		sign = { enabled = false },
 		overrides = {
 			buftype = {
 				nofile = {
 					heading = {
 						position = "inline",
-						icons = { "█", "█", "█", "█", "█", "█" },
+						border = false,
+						border_virtual = false,
+						border_prefix = false,
 						backgrounds = {},
 					},
 					code = { style = "none" },
 				},
 			},
+		},
+		win_options = {
+			conceallevel = { rendered = 2 },
+			concealcursor = { rendered = "nc" },
 		},
 	},
 }

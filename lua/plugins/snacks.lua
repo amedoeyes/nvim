@@ -176,6 +176,37 @@ return {
 			width = { max = 80 },
 			top_down = false,
 		},
+		picker = {
+			layouts = {
+				default = {
+					layout = {
+						box = "horizontal",
+						width = 0.8,
+						min_width = 120,
+						height = 0.8,
+						{
+							box = "vertical",
+							border = "single",
+							title = "{source} {live}",
+							title_pos = "center",
+							{ win = "input", height = 1, border = "bottom" },
+							{ win = "list" },
+						},
+						{ win = "preview", title = "{preview}", border = "single", width = 0.5 },
+					},
+				},
+				vertical = { layout = { border = "single" } },
+				select = { layout = { border = "single" } },
+			},
+			ui_select = true,
+			win = {
+				input = {
+					keys = {
+						["<c-y>"] = { "confirm", mode = { "n", "i" } },
+					},
+				},
+			},
+		},
 		quickfile = { enabled = true },
 		statuscolumn = { enabled = true },
 		words = {
@@ -199,61 +230,24 @@ return {
 		},
 	},
 	keys = {
-		{
-			"<leader>bd",
-			function()
-				Snacks.bufdelete()
-			end,
-			desc = "Delete Buffer",
-		},
-		{
-			"<leader>gg",
-			function()
-				Snacks.lazygit()
-			end,
-			desc = "Lazygit",
-		},
-		{
-			"<leader>gl",
-			function()
-				Snacks.lazygit.log()
-			end,
-			desc = "Lazygit log",
-		},
-		{
-			"<leader>gf",
-			function()
-				Snacks.lazygit.log_file()
-			end,
-			desc = "Lazygit current file history",
-		},
-		{
-			"<leader>gb",
-			function()
-				Snacks.git.blame_line()
-			end,
-			desc = "Git blame line",
-		},
-		{
-			"<leader>gB",
-			function()
-				Snacks.gitbrowse()
-			end,
-			desc = "Git browse",
-		},
-		{
-			"]]",
-			function()
-				Snacks.words.jump(vim.v.count1)
-			end,
-			desc = "Next reference",
-		},
-		{
-			"[[",
-			function()
-				Snacks.words.jump(-vim.v.count1)
-			end,
-			desc = "Previous reference",
-		},
+		{ "<F1>", function() Snacks.picker.help() end, desc = "Find help", mode = { "n", "i" } },
+		{ "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+		{ "<leader>bf", function() Snacks.picker.buffers() end, desc = "Find buffer" },
+		{ "<leader>ff", function() Snacks.picker.files() end, desc = "Find file" },
+		{ "<leader>fr", function() Snacks.picker.recent() end, desc = "Find recent file" },
+		{ "<leader>fs", function() Snacks.picker.grep() end, desc = "Search files" },
+		{ "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git blame line" },
+		{ "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git log file" },
+		{ "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+		{ "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git log" },
+		{ "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Previous reference" },
+		{ "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next reference" },
+		{ "gO", function() Snacks.picker.lsp_symbols() end, desc = "Document symbols" },
+		{ "grD", function() Snacks.picker.lsp_declarations() end, desc = "Declaration" },
+		{ "grd", function() Snacks.picker.lsp_definitions() end, desc = "Definition" },
+		{ "gri", function() Snacks.picker.lsp_implementations() end, desc = "Implementation" },
+		{ "grr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+		{ "grt", function() Snacks.picker.lsp_type_definitions() end, desc = "Type definition" },
+		{ "<c-/>", function() Snacks.terminal() end, desc = "Terminal", mode = { "n", "i", "t" } },
 	},
 }

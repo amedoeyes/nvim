@@ -23,6 +23,7 @@ return {
 			"pylsp",
 			"taplo",
 			"ts_ls",
+			"zk",
 		},
 	},
 	config = function(_, opts)

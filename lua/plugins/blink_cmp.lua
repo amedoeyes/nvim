@@ -2,21 +2,22 @@ return {
 	"saghen/blink.cmp",
 	version = "v0.*",
 	dependencies = "rafamadriz/friendly-snippets",
-	lazy = false,
+	event = { "InsertEnter", "CmdlineEnter" },
 	opts = {
-		accept = {
-			auto_brackets = { enabled = true },
-		},
 		completion = {
-			menu = {
-				border = "single",
+			keyword = { range = "full" },
+			list = {
+				selection = {
+					auto_insert = false,
+				},
 			},
+			menu = { border = "single" },
 			documentation = {
 				window = { border = "single" },
 			},
-			signature = {
-				window = { border = "single" },
-			},
+		},
+		signature = {
+			window = { border = "single" },
 		},
 		appearance = {
 			kind_icons = {

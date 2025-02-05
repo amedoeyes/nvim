@@ -8,66 +8,58 @@ return {
 			callback = function()
 				local toggle = Snacks.toggle
 
-				toggle.option("spell", { id = "spell", name = "Spell" })
-				toggle.option("relativenumber", { id = "relativenumber" })
-				toggle.option("cursorline", { id = "cursorline" })
+				toggle.option("spell", { id = "spell", name = "Spell", global = false })
+				toggle.option("wrap", { id = "wrap", global = false })
+				toggle.option("number", { id = "number", global = false })
+				toggle.option("relativenumber", { id = "relativenumber", global = false })
+				toggle.option("cursorline", { id = "cursorline", global = false })
 				toggle.option("showtabline", {
 					id = "tabline",
 					on = vim.opt.showtabline:get(),
 					off = 0,
+					global = false,
 				})
 				toggle.option("laststatus", {
 					id = "statusline",
 					on = vim.opt.laststatus:get(),
 					off = 0,
+					global = false,
 				})
 				toggle.option("statuscolumn", {
 					id = "statuscolumn",
 					on = vim.opt.statuscolumn:get(),
 					off = "",
+					global = false,
 				})
 				toggle.option("signcolumn", {
 					id = "signcolumn",
 					on = vim.opt.signcolumn:get(),
 					off = "no",
+					global = false,
 				})
 
 				toggle.new({
 					id = "autopairs",
 					name = "Auto-Pairs",
-					get = function()
-						return not vim.g.minipairs_disable
-					end,
-					set = function(state)
-						vim.g.minipairs_disable = not state
-					end,
+					get = function() return not vim.g.minipairs_disable end,
+					set = function(state) vim.g.minipairs_disable = not state end,
 				})
 				toggle.new({
 					id = "gitsigns",
 					name = "Git Signs",
-					get = function()
-						return not vim.g.minidiff_disable
-					end,
-					set = function(state)
-						vim.g.minidiff_disable = not state
-					end,
+					get = function() return not vim.g.minidiff_disable end,
+					set = function(state) vim.g.minidiff_disable = not state end,
 				})
 				toggle.new({
 					id = "autoformat",
 					name = "Auto-Format",
-					get = function()
-						return vim.g.autoformat
-					end,
-					set = function(state)
-						vim.g.autoformat = state
-					end,
+					get = function() return vim.g.autoformat end,
+					set = function(state) vim.g.autoformat = state end,
 				})
 				toggle.new({
 					id = "codelens",
 					name = "Codelens",
-					get = function()
-						return vim.g.codelens
-					end,
+					get = function() return vim.g.codelens end,
 					set = function(state)
 						vim.g.codelens = state
 						if state then
@@ -79,99 +71,98 @@ return {
 				})
 				toggle.new({
 					id = "writemode",
-					name = "Write Mode",
-					get = function()
-						return vim.g.writemode
-					end,
+					name = "Write mode",
+					get = function() return vim.g.writemode end,
 					set = function(state)
 						if state then
-							toggle.get("line_number"):set(false)
+							toggle.get("spell"):set(true)
+							toggle.get("wrap"):set(true)
+							toggle.get("number"):set(false)
+							toggle.get("relativenumber"):set(false)
 							toggle.get("statuscolumn"):set(false)
 							toggle.get("signcolumn"):set(false)
+							toggle.get("indent"):set(false)
+							vim.g.writemodebuf = vim.api.nvim_create_buf(false, true)
+							vim.api.nvim_buf_set_name(vim.g.writemodebuf, "padding")
+							local lwin = vim.api.nvim_open_win(vim.g.writemodebuf, false, {
+								split = "left",
+								focusable = false,
+								style = "minimal",
+							})
+							local rwin = vim.api.nvim_open_win(vim.g.writemodebuf, false, {
+								split = "right",
+								focusable = false,
+								style = "minimal",
+							})
+							local set_width = function()
+								local width = math.floor((vim.o.columns - vim.o.textwidth - 80) / 2)
+								vim.api.nvim_win_set_width(lwin, width)
+								vim.api.nvim_win_set_width(rwin, width)
+							end
+							set_width()
+							vim.g.writemodehl = vim.api.nvim_get_hl(0, { name = "WinSeparator" })
+							vim.api.nvim_set_hl(0, "WinSeparator", { fg = "bg" })
+							vim.api.nvim_create_autocmd("VimResized", {
+								group = vim.api.nvim_create_augroup("writemode", { clear = false }),
+								callback = function() set_width() end,
+							})
+							vim.api.nvim_create_autocmd("WinClosed", {
+								pattern = tostring(vim.api.nvim_get_current_win()),
+								group = vim.api.nvim_create_augroup("writemode", { clear = false }),
+								callback = function()
+									toggle.get("writemode"):set(false)
+									if #vim.api.nvim_list_wins() == 1 then vim.cmd("quit") end
+								end,
+							})
+							local win = vim.api.nvim_get_current_win()
+							vim.api.nvim_create_autocmd("BufEnter", {
+								pattern = "padding",
+								group = vim.api.nvim_create_augroup("writemode", { clear = false }),
+								callback = function() vim.api.nvim_set_current_win(win) end,
+							})
 						else
-							toggle.get("line_number"):set(true)
+							toggle.get("spell"):set(false)
+							toggle.get("wrap"):set(false)
+							toggle.get("number"):set(true)
+							toggle.get("relativenumber"):set(true)
 							toggle.get("statuscolumn"):set(true)
 							toggle.get("signcolumn"):set(true)
+							toggle.get("indent"):set(true)
+							vim.api.nvim_buf_delete(vim.g.writemodebuf, { force = true })
+							vim.api.nvim_set_hl(0, "WinSeparator", vim.g.writemodehl)
+							vim.api.nvim_clear_autocmds({ group = "writemode" })
 						end
 						vim.g.writemode = state
 					end,
 				})
-				toggle.new({
-					id = "screenshotmode",
-					name = "Screenshot Mode",
-					get = function()
-						return vim.g.screenshotmode
-					end,
-					set = function(state)
-						if state then
-							toggle.get("relativenumber"):set(false)
-							toggle.get("cursorline"):set(false)
-							toggle.get("tabline"):set(false)
-							toggle.get("statusline"):set(false)
-							toggle.get("statusline"):set(false)
-							toggle.get("statuscolumn"):set(false)
-							toggle.get("signcolumn"):set(false)
-							toggle.get("diagnostics"):set(false)
-							toggle.get("indent"):set(false)
-							toggle.get("words"):set(false)
-							vim.api.nvim_set_hl(0, "Cursor", { blend = 100, bg = "white" })
-							vim.cmd("NoMatchParen")
-						else
-							toggle.get("relativenumber"):set(true)
-							toggle.get("cursorline"):set(true)
-							toggle.get("tabline"):set(true)
-							toggle.get("statusline"):set(true)
-							toggle.get("statusline"):set(true)
-							toggle.get("statuscolumn"):set(true)
-							toggle.get("signcolumn"):set(true)
-							toggle.get("diagnostics"):set(true)
-							toggle.get("indent"):set(true)
-							toggle.get("words"):set(true)
-							vim.api.nvim_set_hl(0, "Cursor", { blend = 0 })
-							vim.cmd("DoMatchParen")
-						end
-						vim.g.screenshotmode = state
-					end,
-				})
 
-				toggle.get("autopairs"):map("<leader>Tp")
-				toggle.get("codelens"):map("<leader>Tl")
-				toggle.get("diagnostics"):map("<leader>Td")
-				toggle.get("inlay_hints"):map("<leader>Th")
-				toggle.get("spell"):map("<leader>Ts")
+				toggle.get("autoformat"):map("<leader>tf")
+				toggle.get("autopairs"):map("<leader>tp")
+				toggle.get("codelens"):map("<leader>tl")
+				toggle.get("diagnostics"):map("<leader>td")
+				toggle.get("inlay_hints"):map("<leader>th")
+				toggle.get("spell"):map("<leader>ts")
 
-				vim.api.nvim_create_user_command("ScreenshotMode", function()
-					local screenshotmode = toggle.get("screenshotmode")
-					screenshotmode:set(not screenshotmode:get())
-				end, {})
 				vim.api.nvim_create_user_command("WriteMode", function()
 					local writemode = toggle.get("writemode")
-					writemode:set(not writemode:get())
+					if writemode then writemode:set(not writemode:get()) end
 				end, {})
-				vim.api.nvim_create_user_command("ZenMode", function()
-					Snacks.zen()
-				end, {})
+				vim.api.nvim_create_user_command("ZenMode", function() Snacks.zen() end, {})
+
+				vim.g.snacks_animate = false
 			end,
 		})
 	end,
 	opts = {
 		bigfile = { enabled = true },
-		indent = {
-			enabled = true,
-			animate = { enabled = false },
-		},
+		indent = { enabled = true },
 		input = { enabled = true, icon = "" },
 		notifier = {
 			enabled = true,
 			style = function(buf, notif, ctx)
+				local lines = vim.split(notif.icon .. " " .. notif.msg, "\n")
 				ctx.opts.wo.winhighlight = ""
-				vim.api.nvim_buf_set_lines(
-					buf,
-					0,
-					-1,
-					false,
-					vim.split(notif.icon .. " " .. notif.msg, "\n")
-				)
+				vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 			end,
 			width = { max = 80 },
 			top_down = false,
@@ -209,24 +200,14 @@ return {
 		},
 		quickfile = { enabled = true },
 		statuscolumn = { enabled = true },
-		words = {
-			enabled = true,
-			debounce = 100,
-		},
-		zen = { toggles = { dim = false } },
+		words = { enabled = true, debounce = 100 },
 		styles = {
+			blame_line = { border = "single" },
+			input = { relative = "cursor", width = 25, row = -3, border = "single", title_pos = "left" },
 			lazygit = { border = "single" },
 			notification = { border = "single", wo = { winblend = 0 } },
-			blame_line = { border = "single" },
+			terminal = { border = "single", wo = { winbar = "" } },
 			zen = { backdrop = { transparent = false } },
-			input = {
-				relative = "cursor",
-				width = 40,
-				row = -3,
-				col = 0,
-				border = "single",
-				title_pos = "left",
-			},
 		},
 	},
 	keys = {

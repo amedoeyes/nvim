@@ -1,8 +1,6 @@
 return {
 	"MeanderingProgrammer/render-markdown.nvim",
-	dependencies = {
-		{ "nvim-treesitter/nvim-treesitter", lazy = true },
-	},
+	dependencies = { "nvim-treesitter/nvim-treesitter", lazy = true },
 	ft = { "markdown" },
 	opts = {
 		render_modes = true,
@@ -48,8 +46,6 @@ return {
 			border = "thick",
 			highlight_language = "Comment",
 		},
-		quote = { repeat_linebreak = true },
-		latex = { enabled = false },
 		sign = { enabled = false },
 		overrides = {
 			buftype = {

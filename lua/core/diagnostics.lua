@@ -8,9 +8,7 @@ local icons = {
 vim.diagnostic.config({
 	virtual_text = {
 		source = false,
-		prefix = function(d)
-			return icons[d.severity]
-		end,
+		prefix = function(d) return icons[d.severity] end,
 	},
 	signs = { text = icons },
 	float = {

@@ -9,14 +9,10 @@ vim.api.nvim_create_user_command("ReloadConfig", function()
 	local reload_config = _G.reload_config
 	for name, _ in pairs(package.loaded) do
 		for _, pattern in ipairs(reload_config.exclude) do
-			if name:match(pattern) then
-				goto skip
-			end
+			if name:match(pattern) then goto skip end
 		end
 		for _, pattern in ipairs(reload_config.patterns) do
-			if name:match(pattern) then
-				package.loaded[name] = nil
-			end
+			if name:match(pattern) then package.loaded[name] = nil end
 		end
 		::skip::
 	end

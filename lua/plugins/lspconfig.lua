@@ -3,7 +3,6 @@ return {
 	dependencies = {
 		{ "williamboman/mason.nvim" },
 		{ "saghen/blink.cmp", lazy = true },
-		{ "b0o/SchemaStore.nvim", lazy = true },
 	},
 	event = { "BufReadPre", "BufNewFile" },
 	opts = {

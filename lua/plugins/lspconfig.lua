@@ -19,6 +19,7 @@ return {
 			"jsonls",
 			"lua_ls",
 			"marksman",
+			"omnisharp",
 			"pylsp",
 			"taplo",
 			"ts_ls",

@@ -4,7 +4,6 @@ return {
 			gofumpt = true,
 			codelenses = {
 				test = true,
-				tidy = true,
 			},
 			hints = {
 				assignVariableTypes = true,
@@ -17,8 +16,6 @@ return {
 			},
 			analyses = {
 				shadow = true,
-				unusedvariable = true,
-				useany = true,
 			},
 			usePlaceholders = true,
 			staticcheck = true,

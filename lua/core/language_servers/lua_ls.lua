@@ -1,11 +1,22 @@
 return {
 	settings = {
 		Lua = {
-			workspace = { checkThirdParty = "Disable" },
-			telemetry = { enable = false },
-			completion = { callSnippet = "Replace" },
 			codeLens = { enable = true },
+			completion = {
+				callSnippet = "Replace",
+				keywordSnippet = "Both",
+			},
+			format = { enable = false },
 			hint = { enable = true },
+			window = {
+				progressBar = false,
+				statusBar = false,
+			},
+			workspace = {
+				checkThirdParty = "Disable",
+				userThirdParty = { "~/projects/programming/xmake-lls/" },
+				library = { vim.env.VIMRUNTIME },
+			},
 		},
 	},
 }

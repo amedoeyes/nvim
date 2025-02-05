@@ -40,12 +40,6 @@ return {
 		keymaps_help = { border = "single" },
 	},
 	keys = {
-		{
-			"<leader>fe",
-			function()
-				vim.cmd("Oil")
-			end,
-			desc = "File explorer",
-		},
+		{ "-", function() vim.cmd("Oil") end, desc = "File explorer" },
 	},
 }

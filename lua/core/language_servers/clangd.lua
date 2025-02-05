@@ -1,18 +1,19 @@
 return {
 	cmd = {
 		"clangd",
+		"--all-scopes-completion",
 		"--background-index",
+		"--background-index-priority=normal",
 		"--clang-tidy",
 		"--completion-style=detailed",
+		"--enable-config",
 		"--fallback-style=llvm",
 		"--function-arg-placeholders",
-		"--header-insertion=iwyu",
-		"--suggest-missing-includes",
-		"--experimental-modules-support",
-	},
-	init_options = {
-		usePlaceholders = true,
-		completeUnimported = true,
-		clangdFileStatus = true,
+		"--header-insertion=never",
+		"--limit-references=0",
+		"--limit-results=0",
+		"--pch-storage=memory",
+		"--rename-file-limit=0",
+		"-j=4",
 	},
 }

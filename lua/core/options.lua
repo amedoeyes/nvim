@@ -7,8 +7,15 @@ vim.opt.completeopt = "menu,menuone,noinsert"
 vim.opt.confirm = true
 vim.opt.cursorline = true
 vim.opt.exrc = true
-vim.opt.fillchars =
-	{ diff = "╱", eob = " ", fold = " ", foldopen = "", foldclose = "", foldsep = " " }
+vim.opt.fillchars = {
+	diff = "╱",
+	eob = " ",
+	fold = " ",
+	foldopen = "",
+	foldclose = "",
+	foldsep = " ",
+	lastline = " ",
+}
 vim.opt.foldlevel = 99
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
@@ -23,12 +30,15 @@ vim.opt.inccommand = "nosplit"
 vim.opt.jumpoptions = "view"
 vim.opt.laststatus = 3
 vim.opt.linebreak = true
+vim.opt.breakindent = true
+vim.opt.breakindentopt = "list:-1"
 vim.opt.list = true
 vim.opt.listchars:append({ tab = "  ", trail = " " })
 vim.opt.mouse = "a"
 vim.opt.number = true
 vim.opt.pumheight = 10
 vim.opt.relativenumber = true
+vim.opt.ruler = false
 vim.opt.scrolloff = 4
 vim.opt.shiftround = true
 vim.opt.shiftwidth = 2

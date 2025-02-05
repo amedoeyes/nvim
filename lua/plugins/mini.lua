@@ -27,6 +27,7 @@ return {
 			filetype = {
 				c = { glyph = "" },
 				cpp = { glyph = "" },
+				cs = { glyph = "" },
 			},
 		},
 		move = {},
@@ -58,9 +59,7 @@ return {
 	keys = {
 		{
 			"<leader>go",
-			function()
-				require("mini.diff").toggle_overlay(0)
-			end,
+			function() require("mini.diff").toggle_overlay(0) end,
 			desc = "Toggle diff overlay",
 		},
 	},

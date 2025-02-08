@@ -156,7 +156,6 @@ return {
 	opts = {
 		bigfile = { enabled = true },
 		indent = { enabled = true },
-		input = { enabled = true, icon = "" },
 		notifier = {
 			enabled = true,
 			style = function(buf, notif, ctx)

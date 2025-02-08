@@ -3,7 +3,6 @@ return {
 	dependencies = { "nvim-treesitter/nvim-treesitter", lazy = true },
 	ft = { "markdown" },
 	opts = {
-		render_modes = true,
 		anti_conceal = {
 			ignore = {
 				bullet = { "n" },

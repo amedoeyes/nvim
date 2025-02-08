@@ -1,4 +1,5 @@
 return {
+	cmd = { "gopls" },
 	settings = {
 		gopls = {
 			gofumpt = true,
@@ -22,4 +23,5 @@ return {
 			semanticTokens = true,
 		},
 	},
+	root_patterns = { "go.work", "go.mod" },
 }

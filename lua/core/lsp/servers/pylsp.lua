@@ -1,4 +1,5 @@
 return {
+	cmd = { "pylsp" },
 	settings = {
 		pylsp = {
 			plugins = {
@@ -14,5 +15,9 @@ return {
 				yapf = { enabled = false },
 			},
 		},
+	},
+	root_patterns = {
+		"pyproject.toml",
+		"requirements.txt",
 	},
 }

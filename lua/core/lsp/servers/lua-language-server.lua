@@ -1,4 +1,6 @@
 return {
+	cmd = { "lua-language-server" },
+	filetypes = { "lua" },
 	settings = {
 		Lua = {
 			codeLens = { enable = true },
@@ -19,4 +21,5 @@ return {
 			},
 		},
 	},
+	root_dir = vim.fs.root(0, { ".git" }),
 }

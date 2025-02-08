@@ -16,4 +16,10 @@ return {
 		"--rename-file-limit=0",
 		"-j=4",
 	},
+	root_patterns = {
+		".clangd",
+		".clang-tidy",
+		".clang-format",
+		"compile_commands.json",
+	},
 }

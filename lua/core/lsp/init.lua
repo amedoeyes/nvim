@@ -38,8 +38,8 @@ local servers_by_ft = {
 	html = { "vscode-html-language-server" },
 	javascript = { "typescript-language-server" },
 	javascriptreact = { "typescript-language-server" },
-	json = { "json-language-server" },
-	jsonc = { "json-language-server" },
+	json = { "vscode-json-language-server" },
+	jsonc = { "vscode-json-language-server" },
 	less = { "vscode-css-language-server" },
 	lua = { "lua-language-server" },
 	markdown = { "marksman", "zk" },
@@ -92,6 +92,9 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 						end
 						if server._client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
 							vim.opt_local.foldexpr = "v:lua.vim.lsp.foldexpr()"
+						end
+						if server._client:supports_method(vim.lsp.protocol.Methods.textDocument_formatting) then
+							vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
 						end
 					end)
 			end,

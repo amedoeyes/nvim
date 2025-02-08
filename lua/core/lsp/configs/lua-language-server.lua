@@ -1,4 +1,5 @@
 return {
+
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
 	settings = {
@@ -21,5 +22,5 @@ return {
 			},
 		},
 	},
-	root_dir = vim.fs.root(0, { ".git" }),
+	root_patterns =  { ".git" },
 }

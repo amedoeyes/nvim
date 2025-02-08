@@ -1,3 +1,19 @@
+vim.api.nvim_create_autocmd("BufWritePre", {
+	callback = function(e)
+		if not vim.bo.modified then return end
+		local output = vim.fn.system(vim.bo.formatprg, vim.api.nvim_buf_get_lines(e.buf, 0, -1, true))
+		if vim.v.shell_error == 0 then
+			vim.api.nvim_buf_set_lines(
+				e.buf,
+				0,
+				-1,
+				true,
+				vim.split(output, "\n", { plain = true, trimempty = true })
+			)
+		end
+	end,
+})
+
 vim.api.nvim_create_autocmd("TermOpen", {
 	group = vim.api.nvim_create_augroup("terminal", { clear = true }),
 	callback = function() vim.cmd("startinsert") end,
@@ -39,12 +55,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("close_with_q", { clear = true }),
-	pattern = {
-		"checkhealth",
-		"grug-far",
-		"help",
-		"qf",
-	},
+	pattern = { "checkhealth", "help", "qf" },
 	callback = function(e)
 		vim.bo[e.buf].buflisted = false
 		vim.schedule(function()
@@ -72,16 +83,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			if vim.uv.fs_stat(filepath) then
 				if vim.secure.read(filepath) then vim.cmd.source(filepath) end
 			end
-		end
-	end,
-})
-
-vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "VimEnter" }, {
-	group = vim.api.nvim_create_augroup("git_branch", { clear = true }),
-	callback = function()
-		if vim.fs.root(0, ".git") then
-			local cmd = vim.system({ "git", "branch", "--show-current" }):wait()
-			if cmd.code == 0 then vim.g.git_branch = vim.trim(cmd.stdout) end
 		end
 	end,
 })

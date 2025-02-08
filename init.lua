@@ -1,5 +1,4 @@
 require("core.autocmds")
-require("core.commands")
 require("core.diagnostics")
 require("core.filetypes")
 require("core.globals")

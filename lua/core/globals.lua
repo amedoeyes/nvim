@@ -11,12 +11,3 @@ vim.g.loaded_ruby_provider = 0
 
 vim.g.autoformat = true
 vim.g.codelens = false
-
-_G.project_root = {
-	patterns = { ".git", ".clang-format", ".clang-tidy" },
-}
-
-_G.reload_config = {
-	patterns = { "^core" },
-	exclude = { "^core.plugins" },
-}

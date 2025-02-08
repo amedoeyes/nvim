@@ -7,40 +7,6 @@ vim.lsp.util.open_floating_preview = function(contents, syntax, opts)
 	return original_open_floating_preview(contents, syntax, opts)
 end
 
-local servers_by_ft = {
-	bash = { "bash-language-server" },
-	c = { "clangd" },
-	javascript = { "typescript-language-server" },
-	javascriptreact = { "typescript-language-server" },
-	typescript = { "typescript-language-server" },
-	typescriptreact = { "typescript-language-server" },
-	comp = { "glslls" },
-	cpp = { "clangd" },
-	css = { "vscode-css-language-server" },
-	frag = { "glslls" },
-	geom = { "glslls" },
-	glsl = { "glslls" },
-	go = { "gopls" },
-	gomod = { "gopls" },
-	gotmpl = { "gopls" },
-	gowork = { "gopls" },
-	haskell = { "haskell-language-server" },
-	html = { "vscode-html-language-server" },
-	json = { "json-language-server" },
-	jsonc = { "json-language-server" },
-	less = { "vscode-css-language-server" },
-	lua = { "lua-language-server" },
-	markdown = { "marksman", "zk" },
-	cs = { "omnisharp" },
-	python = { "pylsp" },
-	scss = { "vscode-css-language-server" },
-	sh = { "bash-language-server" },
-	tesc = { "glslls" },
-	tese = { "glslls" },
-	vert = { "glslls" },
-	zsh = { "bash-language-server" },
-}
-
 local function find_root(bufnr, patterns)
 	local paths = vim.fs.find(function(name, path)
 		for _, p in ipairs(patterns) do
@@ -51,9 +17,42 @@ local function find_root(bufnr, patterns)
 		path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p:h"),
 		upward = true,
 	})
-	vim.print(vim.inspect(paths))
 	return #paths > 0 and vim.fs.dirname(paths[1]) or nil
 end
+
+local servers_by_ft = {
+	bash = { "bash-language-server" },
+	c = { "clangd" },
+	comp = { "glslls" },
+	cpp = { "clangd" },
+	cs = { "omnisharp" },
+	css = { "vscode-css-language-server" },
+	frag = { "glslls" },
+	geom = { "glslls" },
+	glsl = { "glslls" },
+	go = { "gopls" },
+	gomod = { "gopls" },
+	gotmpl = { "gopls" },
+	gowork = { "gopls" },
+	haskell = { "haskell-language-server" },
+	html = { "vscode-html-language-server" },
+	javascript = { "typescript-language-server" },
+	javascriptreact = { "typescript-language-server" },
+	json = { "json-language-server" },
+	jsonc = { "json-language-server" },
+	less = { "vscode-css-language-server" },
+	lua = { "lua-language-server" },
+	markdown = { "marksman", "zk" },
+	python = { "pylsp" },
+	scss = { "vscode-css-language-server" },
+	sh = { "bash-language-server" },
+	tesc = { "glslls" },
+	tese = { "glslls" },
+	typescript = { "typescript-language-server" },
+	typescriptreact = { "typescript-language-server" },
+	vert = { "glslls" },
+	zsh = { "bash-language-server" },
+}
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	group = vim.api.nvim_create_augroup("eyes.lsp", { clear = true }),
@@ -64,14 +63,13 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 			callback = function()
 				vim
 					.iter(servers_by_ft[vim.bo[e.buf].filetype] or {})
-					:map(function(server) return require("core.lsp.servers." .. server) end)
+					:map(function(server) return require("core.lsp.configs." .. server) end)
 					:each(function(server)
 						if not server._start then
 							server.capabilities = require("blink.cmp").get_lsp_capabilities(server.capabilities)
 							server.root_patterns = server.root_patterns or {}
 							table.insert(server.root_patterns, ".get")
 							server.root_dir = find_root(e.buf, server.root_patterns)
-							vim.notify(server.root_dir)
 							local client_id = vim.lsp.start(server)
 							if client_id then
 								local client = vim.lsp.get_client_by_id(client_id)

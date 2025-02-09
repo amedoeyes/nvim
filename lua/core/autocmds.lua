@@ -1,20 +1,3 @@
-vim.api.nvim_create_autocmd("BufWritePre", {
-	callback = function(e)
-		if not vim.bo.modified then return end
-		local output = vim.fn.system(vim.bo.formatprg, vim.api.nvim_buf_get_lines(e.buf, 0, -1, true))
-		if vim.v.shell_error == 0 then
-			vim.api.nvim_buf_set_lines(
-				e.buf,
-				0,
-				-1,
-				true,
-				vim.split(output, "\n", { plain = true, trimempty = true })
-			)
-			vim.diagnostic.show(nil, 0)
-		end
-	end,
-})
-
 vim.api.nvim_create_autocmd("TermOpen", {
 	group = vim.api.nvim_create_augroup("terminal", { clear = true }),
 	callback = function() vim.cmd("startinsert") end,

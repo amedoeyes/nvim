@@ -26,3 +26,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		end
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave", "VimEnter" }, {
+	group = vim.api.nvim_create_augroup("git_branch", { clear = true }),
+	callback = function()
+		if vim.fs.root(0, ".git") then
+			local cmd = vim.system({ "git", "branch", "--show-current" }):wait()
+			if cmd.code == 0 then vim.g.git_branch = vim.trim(cmd.stdout) end
+		end
+	end,
+})

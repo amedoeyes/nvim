@@ -22,6 +22,7 @@ vim.lsp.enable({
 	"pylsp",
 	"typescript-language-server",
 	"vscode-css-language-server",
+	"vscode-eslint-language-server",
 	"vscode-html-language-server",
 	"vscode-json-language-server",
 	"zk",

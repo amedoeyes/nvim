@@ -11,7 +11,11 @@ local function format(buf, range)
 		end
 		vim.diagnostic.show(nil, 0)
 	else
-		vim.lsp.buf.format({ bufnr = buf, range = range })
+		local clients = vim.lsp.get_clients({
+			bufnr = 0,
+			method = vim.lsp.protocol.Methods.textDocument_formatting,
+		})
+		if #clients > 0 then vim.lsp.buf.format({ bufnr = buf, range = range }) end
 	end
 	vim.diagnostic.show(nil, 0)
 end

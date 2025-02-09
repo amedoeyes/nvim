@@ -1,12 +1,18 @@
 vim.lsp.set_log_level("off")
 
 local original_open_floating_preview = vim.lsp.util.open_floating_preview
+---@diagnostic disable-next-line: duplicate-set-field
 vim.lsp.util.open_floating_preview = function(contents, syntax, opts)
 	opts.border = "single"
 	opts.max_width = 80
 	return original_open_floating_preview(contents, syntax, opts)
 end
 
+local M = {}
+
+---@param bufnr integer
+---@param patterns string[]
+---@return string|nil
 local function find_root(bufnr, patterns)
 	local paths = vim.fs.find(function(name, path)
 		for _, p in ipairs(patterns) do
@@ -19,8 +25,6 @@ local function find_root(bufnr, patterns)
 	})
 	return #paths > 0 and vim.fs.dirname(paths[1]) or nil
 end
-
-local M = {}
 
 ---@param server string
 M.start = function(server)
@@ -48,9 +52,6 @@ M.start = function(server)
 	end
 	if client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
 		vim.opt_local.foldexpr = "v:lua.vim.lsp.foldexpr()"
-	end
-	if client:supports_method(vim.lsp.protocol.Methods.textDocument_formatting) then
-		vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
 	end
 end
 

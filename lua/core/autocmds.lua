@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 				true,
 				vim.split(output, "\n", { plain = true, trimempty = true })
 			)
+			vim.diagnostic.show(nil, 0)
 		end
 	end,
 })

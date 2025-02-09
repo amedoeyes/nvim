@@ -1,10 +1,35 @@
+[warn] Ignored unknown option --std-filepath=%. Did you mean --stdin-filepath?
 {
-  "blink.cmp": { "branch": "main", "commit": "b6f11a0aa33e601c469a126e3ed6e35208fe3ea3" },
-  "friendly-snippets": { "branch": "main", "commit": "efff286dd74c22f731cdec26a70b46e5b203c619" },
-  "lazy.nvim": { "branch": "main", "commit": "f15a93907ddad3d9139aea465ae18336d87f5ce6" },
-  "mini.nvim": { "branch": "main", "commit": "4e873f36552ac7c15a824f36783c629493f78d0c" },
-  "nvim-treesitter": { "branch": "master", "commit": "3973f53d7a8c4b87151dc3fd0e3d654aaa036c31" },
-  "oil.nvim": { "branch": "master", "commit": "add50252b5e9147c0a09d36480d418c7e2737472" },
-  "render-markdown.nvim": { "branch": "main", "commit": "17a77463f945c4b9e4f371c752efd90e3e1bf604" },
-  "snacks.nvim": { "branch": "main", "commit": "3d53a7364e438a7652bb6b90b95c334c32cab938" }
+  "blink.cmp": {
+    "branch": "main",
+    "commit": "b6f11a0aa33e601c469a126e3ed6e35208fe3ea3"
+  },
+  "friendly-snippets": {
+    "branch": "main",
+    "commit": "efff286dd74c22f731cdec26a70b46e5b203c619"
+  },
+  "lazy.nvim": {
+    "branch": "main",
+    "commit": "f15a93907ddad3d9139aea465ae18336d87f5ce6"
+  },
+  "mini.nvim": {
+    "branch": "main",
+    "commit": "4e873f36552ac7c15a824f36783c629493f78d0c"
+  },
+  "nvim-treesitter": {
+    "branch": "master",
+    "commit": "3973f53d7a8c4b87151dc3fd0e3d654aaa036c31"
+  },
+  "oil.nvim": {
+    "branch": "master",
+    "commit": "add50252b5e9147c0a09d36480d418c7e2737472"
+  },
+  "render-markdown.nvim": {
+    "branch": "main",
+    "commit": "17a77463f945c4b9e4f371c752efd90e3e1bf604"
+  },
+  "snacks.nvim": {
+    "branch": "main",
+    "commit": "a386e4270b7c083c95028bcaa1b062b57537817b"
+  }
 }

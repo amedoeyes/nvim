@@ -15,7 +15,7 @@ local function format(buf, range)
 		if vim.tbl_isempty(diff) then return end
 		local text_edits = {}
 		for _, hunk in ipairs(diff) do
-			local start_a, count_a, start_b, count_b = table.unpack(hunk)
+			local start_a, count_a, start_b, count_b = unpack(hunk)
 			local replacement_lines = vim.list_slice(formatted_lines, start_b, start_b + count_b - 1)
 			table.insert(text_edits, {
 				range = {

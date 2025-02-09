@@ -9,7 +9,6 @@ local function format(buf, range)
 		else
 			vim.api.nvim_buf_set_lines(buf, 0, -1, false, formatted_lines)
 		end
-		vim.diagnostic.show(nil, 0)
 	else
 		local clients = vim.lsp.get_clients({
 			bufnr = 0,
@@ -42,5 +41,8 @@ end
 vim.opt.formatexpr = "v:lua.FormatExpr()"
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-	callback = function(e) format(e.buf) end,
+	callback = function(e)
+		if not vim.g.autoformat then return end
+		format(e.buf)
+	end,
 })

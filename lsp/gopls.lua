@@ -1,5 +1,6 @@
 return {
 	cmd = { "gopls" },
+	filetypes = { "go", "gomod" },
 	settings = {
 		gopls = {
 			gofumpt = true,
@@ -23,5 +24,5 @@ return {
 			semanticTokens = true,
 		},
 	},
-	root_patterns = { "go.work", "go.mod" },
+	root_markers = { "go.work", "go.mod" },
 }

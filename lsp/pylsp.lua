@@ -1,5 +1,6 @@
 return {
 	cmd = { "pylsp" },
+	filetypes = { "python" },
 	settings = {
 		pylsp = {
 			plugins = {
@@ -16,8 +17,5 @@ return {
 			},
 		},
 	},
-	root_patterns = {
-		"pyproject.toml",
-		"requirements.txt",
-	},
+	root_markers = { "pyproject.toml", "requirements.txt" },
 }

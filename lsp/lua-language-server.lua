@@ -1,5 +1,4 @@
 return {
-
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
 	settings = {
@@ -22,5 +21,4 @@ return {
 			},
 		},
 	},
-	root_patterns =  { ".git" },
 }

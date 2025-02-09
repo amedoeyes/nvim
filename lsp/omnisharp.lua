@@ -7,5 +7,6 @@ return {
 		"DotNet:enablePackageRestore=false",
 		"-lsp",
 	},
-	root_patterns = { "*.csproj" },
+	filetypes = { "cs" },
+	root_markers = { "*.csproj" },
 }

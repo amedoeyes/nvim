@@ -20,84 +20,38 @@ local function find_root(bufnr, patterns)
 	return #paths > 0 and vim.fs.dirname(paths[1]) or nil
 end
 
-local servers_by_ft = {
-	bash = { "bash-language-server" },
-	c = { "clangd" },
-	comp = { "glslls" },
-	cpp = { "clangd" },
-	cs = { "omnisharp" },
-	css = { "vscode-css-language-server" },
-	frag = { "glslls" },
-	geom = { "glslls" },
-	glsl = { "glslls" },
-	go = { "gopls" },
-	gomod = { "gopls" },
-	gotmpl = { "gopls" },
-	gowork = { "gopls" },
-	haskell = { "haskell-language-server" },
-	html = { "vscode-html-language-server" },
-	javascript = { "typescript-language-server" },
-	javascriptreact = { "typescript-language-server" },
-	json = { "vscode-json-language-server" },
-	jsonc = { "vscode-json-language-server" },
-	less = { "vscode-css-language-server" },
-	lua = { "lua-language-server" },
-	markdown = { "marksman", "zk" },
-	python = { "pylsp" },
-	scss = { "vscode-css-language-server" },
-	sh = { "bash-language-server" },
-	tesc = { "glslls" },
-	tese = { "glslls" },
-	typescript = { "typescript-language-server" },
-	typescriptreact = { "typescript-language-server" },
-	vert = { "glslls" },
-	zsh = { "bash-language-server" },
-}
+local M = {}
 
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	group = vim.api.nvim_create_augroup("eyes.lsp", { clear = true }),
-	callback = function(e)
-		vim.api.nvim_create_autocmd("FileType", {
-			buffer = e.buf,
-			once = true,
+---@param server string
+M.start = function(server)
+	local buf = vim.api.nvim_get_current_buf()
+	local config = require("core.lsp.configs." .. server)
+	config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+	config.root_patterns = config.root_patterns or {}
+	table.insert(config.root_patterns, ".get")
+	config.root_dir = find_root(buf, config.root_patterns)
+	local client_id = vim.lsp.start(config, {
+		reuse_client = function(c, cfg) return c.name == cfg.name and c.config.root_dir == cfg.root_dir end,
+	})
+	if not client_id then return end
+	local client = vim.lsp.get_client_by_id(client_id)
+	if not client then return end
+	if not config.name then config.name = client.name end
+	if client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
+		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+			group = vim.api.nvim_create_augroup("eyes.lsp.codelens", { clear = false }),
+			buffer = buf,
 			callback = function()
-				vim
-					.iter(servers_by_ft[vim.bo[e.buf].filetype] or {})
-					:map(function(server) return require("core.lsp.configs." .. server) end)
-					:each(function(server)
-						if not server._start then
-							server.capabilities = require("blink.cmp").get_lsp_capabilities(server.capabilities)
-							server.root_patterns = server.root_patterns or {}
-							table.insert(server.root_patterns, ".get")
-							server.root_dir = find_root(e.buf, server.root_patterns)
-							local client_id = vim.lsp.start(server)
-							if client_id then
-								local client = vim.lsp.get_client_by_id(client_id)
-								if client then
-									server._client = client
-									server._start = true
-								end
-							end
-						else
-							server._client:on_attach(e.buf)
-						end
-						if server._client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
-							vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-								group = vim.api.nvim_create_augroup("eyes.lsp.codelens", { clear = false }),
-								buffer = e.buf,
-								callback = function()
-									if vim.g.codelens then vim.lsp.codelens.refresh({ bufnr = e.buf }) end
-								end,
-							})
-						end
-						if server._client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
-							vim.opt_local.foldexpr = "v:lua.vim.lsp.foldexpr()"
-						end
-						if server._client:supports_method(vim.lsp.protocol.Methods.textDocument_formatting) then
-							vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
-						end
-					end)
+				if vim.g.codelens then vim.lsp.codelens.refresh({ bufnr = buf }) end
 			end,
 		})
-	end,
-})
+	end
+	if client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
+		vim.opt_local.foldexpr = "v:lua.vim.lsp.foldexpr()"
+	end
+	if client:supports_method(vim.lsp.protocol.Methods.textDocument_formatting) then
+		vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
+	end
+end
+
+return M

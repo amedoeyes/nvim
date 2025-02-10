@@ -28,11 +28,17 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave", "VimEnter" }, {
-	group = vim.api.nvim_create_augroup("git_branch", { clear = true }),
+	group = vim.api.nvim_create_augroup("eyes.git_branch", { clear = true }),
 	callback = function()
-		if vim.fs.root(0, ".git") then
-			local cmd = vim.system({ "git", "branch", "--show-current" }):wait()
-			if cmd.code == 0 then vim.g.git_branch = vim.trim(cmd.stdout) end
+		local git_dir = vim.fs.root(0, ".git")
+		if git_dir then
+			local fd = vim.uv.fs_open(git_dir .. "/.git/HEAD", "r", 438)
+			if fd then
+				local stat = vim.uv.fs_fstat(fd)
+				local data = vim.uv.fs_read(fd, stat.size, 0)
+				vim.uv.fs_close(fd)
+				if data then vim.g.git_branch = data:match("ref: refs/heads/(.+)\n") end
+			end
 		end
 	end,
 })

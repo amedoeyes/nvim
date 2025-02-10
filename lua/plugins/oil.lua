@@ -1,7 +1,8 @@
-return {
-	"stevearc/oil.nvim",
-	lazy = false,
-	opts = {
+local deps = require("mini.deps")
+
+deps.now(function()
+	local oil = require("oil")
+	oil.setup({
 		columns = {
 			"permissions",
 			"size",
@@ -18,8 +19,6 @@ return {
 		progress = { border = "single" },
 		ssh = { border = "single" },
 		keymaps_help = { border = "single" },
-	},
-	keys = {
-		{ "-", function() vim.cmd("Oil") end, desc = "File explorer" },
-	},
-}
+	})
+	vim.keymap.set("n", "-", function() oil.open() end, { desc = "File explorer" })
+end)

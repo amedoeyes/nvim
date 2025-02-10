@@ -63,6 +63,8 @@ end
 
 vim.opt.formatexpr = "v:lua.FormatExpr()"
 
+vim.g.autoformat = true
+
 vim.api.nvim_create_autocmd("BufWritePre", {
 	callback = function(e)
 		if not vim.g.autoformat then return end

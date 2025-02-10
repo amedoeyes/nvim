@@ -2,7 +2,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 	group = vim.api.nvim_create_augroup("eyes.terminal", { clear = true }),
 	callback = function()
 		vim.opt_local.statuscolumn = ""
-		vim.cmd("startinsert")
+		vim.cmd.startinsert()
 	end,
 })
 

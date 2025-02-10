@@ -17,7 +17,10 @@ return {
 			workspace = {
 				checkThirdParty = "Disable",
 				userThirdParty = { "~/projects/programming/xmake-lls/" },
-				library = { vim.env.VIMRUNTIME },
+				library = {
+					vim.env.VIMRUNTIME,
+					require("mini.deps").config.path.package,
+				},
 			},
 		},
 	},

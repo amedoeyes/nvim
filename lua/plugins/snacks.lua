@@ -171,23 +171,32 @@ deps.now(function()
 
 	vim.g.snacks_animate = false
 
-	vim.keymap.set("n", "<leader>bd", Snacks.bufdelete.delete)
-	vim.keymap.set("n", "<leader>bf", Snacks.picker.buffers)
-	vim.keymap.set("n", "<leader>ff", Snacks.picker.files)
-	vim.keymap.set("n", "<leader>fr", Snacks.picker.recent)
-	vim.keymap.set("n", "<leader>fs", Snacks.picker.grep)
-	vim.keymap.set("n", "<leader>gL", Snacks.picker.git_log_line)
-	vim.keymap.set("n", "<leader>gf", Snacks.picker.git_log_file)
-	vim.keymap.set("n", "<leader>gg", Snacks.lazygit.open)
-	vim.keymap.set("n", "<leader>gl", Snacks.picker.git_log)
-	vim.keymap.set("n", "[[", function() Snacks.words.jump(-vim.v.count1) end)
-	vim.keymap.set("n", "]]", function() Snacks.words.jump(vim.v.count1) end)
-	vim.keymap.set("n", "gO", Snacks.picker.lsp_symbols)
-	vim.keymap.set("n", "grD", Snacks.picker.lsp_declarations)
-	vim.keymap.set("n", "grd", Snacks.picker.lsp_definitions)
-	vim.keymap.set("n", "gri", Snacks.picker.lsp_implementations)
-	vim.keymap.set("n", "grr", Snacks.picker.lsp_references, { nowait = true })
-	vim.keymap.set("n", "grt", Snacks.picker.lsp_type_definitions)
-	vim.keymap.set({ "n", "i" }, "<F1>", Snacks.picker.help)
-	vim.keymap.set({ "n", "i", "t" }, "<c-/>", Snacks.terminal.toggle)
+	vim.keymap.set("n", "<leader>bf", Snacks.picker.buffers, { desc = "Find buffer" })
+	vim.keymap.set("n", "<leader>ff", Snacks.picker.files, { desc = "Find file" })
+	vim.keymap.set("n", "<leader>fr", Snacks.picker.recent, { desc = "Find recent file" })
+	vim.keymap.set("n", "<leader>fs", Snacks.picker.grep, { desc = "Search files" })
+	vim.keymap.set("n", "<leader>gL", Snacks.picker.git_log_line, { desc = "Git blame line" })
+	vim.keymap.set("n", "<leader>gf", Snacks.picker.git_log_file, { desc = "Git log file" })
+	vim.keymap.set("n", "<leader>gg", Snacks.lazygit.open, { desc = "Lazygit" })
+	vim.keymap.set("n", "<leader>gl", Snacks.picker.git_log, { desc = "Git log" })
+	vim.keymap.set("n", "gO", Snacks.picker.lsp_symbols, { desc = "Document symbols" })
+	vim.keymap.set("n", "grD", Snacks.picker.lsp_declarations, { desc = "Declaration" })
+	vim.keymap.set("n", "grd", Snacks.picker.lsp_definitions, { desc = "Definition" })
+	vim.keymap.set("n", "gri", Snacks.picker.lsp_implementations, { desc = "Implementation" })
+	vim.keymap.set("n", "grr", Snacks.picker.lsp_references, { nowait = true, desc = "References" })
+	vim.keymap.set("n", "grt", Snacks.picker.lsp_type_definitions, { desc = "Type definition" })
+	vim.keymap.set({ "n", "i" }, "<F1>", Snacks.picker.help, { desc = "Find help" })
+	vim.keymap.set({ "n", "i", "t" }, "<c-/>", Snacks.terminal.toggle, { desc = "Terminal" })
+	vim.keymap.set(
+		"n",
+		"[[",
+		function() Snacks.words.jump(-vim.v.count1) end,
+		{ desc = "Previous reference" }
+	)
+	vim.keymap.set(
+		"n",
+		"]]",
+		function() Snacks.words.jump(vim.v.count1) end,
+		{ desc = "Next reference" }
+	)
 end)

@@ -49,6 +49,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-vim.keymap.set("n", "grlr", vim.lsp.codelens.run)
-vim.keymap.set("n", "grlc", vim.lsp.codelens.clear)
-vim.keymap.set("n", "grlf", vim.lsp.codelens.refresh)
+vim.keymap.set("n", "grlr", vim.lsp.codelens.run, { desc = "Codelens run" })
+vim.keymap.set("n", "grlc", vim.lsp.codelens.clear, { desc = "Codelens clear" })
+vim.keymap.set("n", "grlf", vim.lsp.codelens.refresh, { desc = "Codelens refresh" })

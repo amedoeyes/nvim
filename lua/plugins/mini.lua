@@ -57,7 +57,26 @@ deps.now(function()
 			},
 		},
 	})
-	vim.keymap.set("n", "<leader>go", function() diff.toggle_overlay(0) end)
+	vim.keymap.set(
+		"n",
+		"<leader>go",
+		function() diff.toggle_overlay(0) end,
+		{ desc = "Git diff overlay" }
+	)
+end)
+
+deps.now(function()
+	local files = require("mini.files")
+	files.setup({
+		options = { permanent_delete = false },
+		mappings = {
+			go_in = "",
+			go_in_plus = "L",
+			go_out = "",
+			go_out_plus = "H",
+		},
+	})
+	vim.keymap.set("n", "<leader>fe", files.open, { desc = "File explorer" })
 end)
 
 deps.now(function()

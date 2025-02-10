@@ -33,7 +33,6 @@ deps.add({
 require("plugins.blink_cmp")
 require("plugins.eyes")
 require("plugins.mini")
-require("plugins.oil")
 require("plugins.render_markdown")
 require("plugins.snacks")
 require("plugins.termdebug")
